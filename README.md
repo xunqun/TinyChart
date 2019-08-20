@@ -2,12 +2,16 @@
 
 ## Introduction
 
+![image](https://github.com/xunqun/TinyChart/blob/master/device-2019-08-20-110539.png?raw=true)
+![image](https://github.com/xunqun/TinyChart/blob/master/device-2019-08-20-110608.png?raw=true)
+
+## Usage
+Find details in SampleActivity.kt in the module
 
 ## Install
 
-### Maven
+- Maven dependency
 
-Maven dependency
 ```Maven
 <dependency>
   <groupId>com.whilerain.tinychart</groupId>
@@ -17,9 +21,8 @@ Maven dependency
 </dependency>
 ```
   
-### Gradle
+- Gradle dependency
 
-Gradle dependency
 ```Gradle
 implementation 'com.whilerain.tinychart:tinychart:1.0'
 ```
