@@ -1,6 +1,6 @@
 # TinyChart
 
-TinyChart is a view module combines line chart and bar chart, to show the relevent data set in one chart view. The module is used for Android writing by kotlin
+TinyChart is a view module combines line chart and bar chart, to show the relevent data set in one chart view. The module is used for Android, writing by kotlin
 
 ## Introduction
 
