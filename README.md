@@ -6,7 +6,8 @@
 ![image](https://github.com/xunqun/TinyChart/blob/master/device-2019-08-20-110608.png?raw=true)
 
 ## Usage
-Find details in SampleActivity.kt in the module
+
+Find SampleActivity.kt in the module for details
 
 ## Install
 
