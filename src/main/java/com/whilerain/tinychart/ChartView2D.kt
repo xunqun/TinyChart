@@ -13,16 +13,10 @@ class ChartView2D @JvmOverloads constructor(
     /**
      * The color of the chart frame
      */
-    private var mainColor = Color.GRAY
+    private var mainColor = Color.BLACK
         set(value) {
             field = value
             framePaint.color = value
-        }
-
-    private var lineColor = Color.GRAY
-        set(value) {
-            field = value
-            linePaint.color = value
         }
 
     private var strokeWidth: Float = UiUtil.dpToPx(3).toFloat()
@@ -35,7 +29,7 @@ class ChartView2D @JvmOverloads constructor(
      * Paints of drawing
      */
     private val framePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        strokeWidth = UiUtil.dpToPx(2).toFloat()
+        strokeWidth = UiUtil.dpToPx(1).toFloat()
         style = Paint.Style.STROKE
         color = mainColor
     }
@@ -43,14 +37,13 @@ class ChartView2D @JvmOverloads constructor(
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         strokeWidth = UiUtil.dpToPx(1).toFloat()
         style = Paint.Style.STROKE
-        color = lineColor
     }
 
     /**
      * Raw data
      */
-    private var raws: List<Pair<Float, Float>>? = null
-    private var colors: List<Int> = listOf(Color.BLACK)
+    private var lines: ArrayList<Line2D> = ArrayList()
+    private var colors: List<Int> = listOf(Color.BLACK, Color.RED, Color.BLUE)
 
     // The exact data boundary
     private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
@@ -61,7 +54,7 @@ class ChartView2D @JvmOverloads constructor(
     /**
      * View data
      */
-    private val chartBoundary: Rect = Rect(0, 0, 0, 0)
+    private var chartBoundary: Rect = Rect(0, 0, 0, 0)
 
     init {
         if (attrs != null) {
@@ -70,11 +63,10 @@ class ChartView2D @JvmOverloads constructor(
                 R.styleable.TinyChart,
                 0, 0
             ).apply {
-                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.LTGRAY)
-                lineColor = getColor(R.styleable.TinyChart_lineChartColor, Color.BLACK)
+                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.BLACK)
                 strokeWidth = getDimensionPixelSize(
                     R.styleable.TinyChart_lineStrokeWidth,
-                    UiUtil.dpToPx(3)
+                    UiUtil.dpToPx(1)
 
                 ).toFloat()
             }
@@ -84,17 +76,19 @@ class ChartView2D @JvmOverloads constructor(
     /**
      * Provides data list contains (x, y) as Pair
      */
-    fun loadData(raws: List<Pair<Float, Float>>) {
-        if (raws.isNotEmpty()) {
-            dataBoundary.left = raws[0].first
-            dataBoundary.right = raws[0].first
-            dataBoundary.top = raws[0].second
-            dataBoundary.bottom = raws[0].second
-            raws.forEach {
-                if (it.first < dataBoundary.left) dataBoundary.left = it.first
-                if (it.first > dataBoundary.right) dataBoundary.right = it.first
-                if (it.second < dataBoundary.top) dataBoundary.top = it.second
-                if (it.second > dataBoundary.bottom) dataBoundary.bottom = it.second
+    fun addData(lines: ArrayList<Line2D>) {
+        if (lines.isNotEmpty()) {
+            dataBoundary.left = lines[0].raws[0].first
+            dataBoundary.right = lines[0].raws[0].first
+            dataBoundary.top = lines[0].raws[0].second
+            dataBoundary.bottom = lines[0].raws[0].second
+            lines.forEach {line ->
+                line.raws.forEach {
+                    if (it.first < dataBoundary.left) dataBoundary.left = it.first
+                    if (it.first > dataBoundary.right) dataBoundary.right = it.first
+                    if (it.second < dataBoundary.top) dataBoundary.top = it.second
+                    if (it.second > dataBoundary.bottom) dataBoundary.bottom = it.second
+                }
             }
             displayBoundary = RectF(
                 dataBoundary.left,
@@ -102,22 +96,34 @@ class ChartView2D @JvmOverloads constructor(
                 dataBoundary.right + dataBoundary.width() * 0.1f,
                 dataBoundary.bottom + dataBoundary.height() * 0.1f
             )
-            this.raws = raws
-        } else {
-            this.raws = null
+            this.lines = lines
+            invalidate()
         }
     }
 
+    /**
+     * Clear data
+     */
+    fun clear(){
+        lines.clear()
+        dataBoundary = RectF(0f, 0f, 0f, 0f)
+        displayBoundary = RectF(0f, 0f, 10f, 10f)
+        chartBoundary = Rect(0, 0, 0, 0)
+    }
+
+    /**
+     * Given the color list
+     */
     fun setColors(colors: List<Int>) {
         this.colors = colors
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        chartBoundary.left = left + paddingLeft
-        chartBoundary.right = right - paddingRight
-        chartBoundary.top = top + paddingTop
-        chartBoundary.bottom = bottom - paddingBottom
+        chartBoundary.left = paddingLeft
+        chartBoundary.right = right - left - paddingRight - paddingLeft
+        chartBoundary.top = paddingTop
+        chartBoundary.bottom = bottom - top - paddingTop - paddingBottom
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -128,23 +134,31 @@ class ChartView2D @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         canvas?.let {
             drawFrame(canvas)
+            drawLines(canvas)
         }
         super.onDraw(canvas)
+    }
+
+    private fun drawLines(canvas: Canvas) {
+        for (i in lines.indices) {
+            linePaint.color = colors[i % colors.size]
+            lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, linePaint)
+        }
     }
 
     private fun drawFrame(canvas: Canvas) {
         if (chartBoundary.width() > 0) {
             canvas.drawLine(
                 chartBoundary.left.toFloat(),
-                chartBoundary.bottom.toFloat(),
+                chartBoundary.bottom.toFloat() - 1,
                 chartBoundary.right.toFloat(),
-                chartBoundary.bottom.toFloat(),
+                chartBoundary.bottom.toFloat() - 1,
                 framePaint
             )
             canvas.drawLine(
-                chartBoundary.left.toFloat(),
+                chartBoundary.left.toFloat() + 1,
                 chartBoundary.bottom.toFloat(),
-                chartBoundary.left.toFloat(),
+                chartBoundary.left.toFloat() + 1,
                 chartBoundary.top.toFloat(),
                 framePaint
             )
