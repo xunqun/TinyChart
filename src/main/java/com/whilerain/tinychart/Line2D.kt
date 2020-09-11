@@ -12,7 +12,6 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         line: List<Pair<Float, Float>>,
         paint: Paint
     ) {
-        Log.d("chart", "chartBoundary: ${chartBoundary.left}, ${chartBoundary.top}, ${chartBoundary.right}, ${chartBoundary.bottom}" )
         var path: Path? = null
         line.map { r ->
             val scaleX =  Math.abs(chartBoundary.width() / displayBoundary.width())
@@ -22,7 +21,6 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
             Pair(x, chartBoundary.height() - y)
 
         }.forEach {
-            Log.d("chart", "point: ${it.first}, ${it.second}" )
             if (path == null) {
                 path = Path()
                 path!!.moveTo(it.first, it.second)

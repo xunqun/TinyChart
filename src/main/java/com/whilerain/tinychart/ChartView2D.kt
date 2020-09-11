@@ -3,6 +3,10 @@ package com.whilerain.tinychart
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import com.whilerain.tinychart.utils.UiUtil
 
@@ -56,6 +60,51 @@ class ChartView2D @JvmOverloads constructor(
      */
     private var chartBoundary: Rect = Rect(0, 0, 0, 0)
 
+    /**
+     * Touch listener
+     */
+    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            val spanDelta =
+                (detector.currentSpanX - detector.previousSpanX) * (dataBoundary.width() / chartBoundary.width()) * 0.5
+            Log.d("chart", "spanDelta: $spanDelta  ")
+            val left = displayBoundary.left + spanDelta
+            val right = displayBoundary.right - spanDelta
+            if (right > left && left >= dataBoundary.left && right <= dataBoundary.right) {
+                displayBoundary.left = left.toFloat()
+                displayBoundary.right = right.toFloat()
+            }
+            invalidate()
+
+            return true
+        }
+    }
+
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onScroll(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            distanceX: Float,
+            distanceY: Float
+        ): Boolean {
+            val left =
+                displayBoundary.left + distanceX * (displayBoundary.width() / chartBoundary.width())
+            val right =
+                displayBoundary.right + distanceX * (displayBoundary.width() / chartBoundary.width())
+            if (left >= dataBoundary.left && right <= dataBoundary.right) {
+                displayBoundary.left = left
+                displayBoundary.right = right
+                invalidate()
+            }
+            return true
+        }
+    }
+
+
+    private val scaleDetector = ScaleGestureDetector(context, scaleListener)
+    private val guestureDetector = GestureDetector(context, gestureListener)
+
     init {
         if (attrs != null) {
             context.theme.obtainStyledAttributes(
@@ -82,7 +131,7 @@ class ChartView2D @JvmOverloads constructor(
             dataBoundary.right = lines[0].raws[0].first
             dataBoundary.top = lines[0].raws[0].second
             dataBoundary.bottom = lines[0].raws[0].second
-            lines.forEach {line ->
+            lines.forEach { line ->
                 line.raws.forEach {
                     if (it.first < dataBoundary.left) dataBoundary.left = it.first
                     if (it.first > dataBoundary.right) dataBoundary.right = it.first
@@ -93,8 +142,8 @@ class ChartView2D @JvmOverloads constructor(
             displayBoundary = RectF(
                 dataBoundary.left,
                 dataBoundary.top,
-                dataBoundary.right + dataBoundary.width() * 0.1f,
-                dataBoundary.bottom + dataBoundary.height() * 0.1f
+                dataBoundary.right,
+                dataBoundary.bottom
             )
             this.lines = lines
             invalidate()
@@ -104,7 +153,7 @@ class ChartView2D @JvmOverloads constructor(
     /**
      * Clear data
      */
-    fun clear(){
+    fun clear() {
         lines.clear()
         dataBoundary = RectF(0f, 0f, 0f, 0f)
         displayBoundary = RectF(0f, 0f, 10f, 10f)
@@ -129,6 +178,12 @@ class ChartView2D @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        scaleDetector.onTouchEvent(event)
+        guestureDetector.onTouchEvent(event)
+        return true
     }
 
     override fun onDraw(canvas: Canvas?) {
