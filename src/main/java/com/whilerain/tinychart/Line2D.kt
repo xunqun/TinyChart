@@ -10,10 +10,12 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         displayBoundary: RectF,
         chartBoundary: Rect,
         line: List<Pair<Float, Float>>,
+        percent: Float,
         paint: Paint
     ) {
         var path: Path? = null
-        line.map { r ->
+        val count = (line.size * percent).toInt()
+        line.subList(0, count).map { r ->
             val scaleX =  Math.abs(chartBoundary.width() / displayBoundary.width())
             val scaleY = Math.abs(chartBoundary.height()/ displayBoundary.height())
             var x = (r.first - displayBoundary.left) * scaleX + chartBoundary.left

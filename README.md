@@ -29,3 +29,14 @@ Find SampleActivity.kt in the module for details
 ```Gradle
 implementation 'com.whilerain.tinychart:tinychart:1.0'
 ```
+## Load as submodule
+
+Add to top-level build.gradle
+
+```gradle
+dependencies {
+    ...
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'  
+}
+```
