@@ -18,8 +18,8 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         line.subList(0, count).map { r ->
             val scaleX =  Math.abs(chartBoundary.width() / displayBoundary.width())
             val scaleY = Math.abs(chartBoundary.height()/ displayBoundary.height())
-            var x = (r.first - displayBoundary.left) * scaleX + chartBoundary.left
-            var y = (r.second - displayBoundary.top) * scaleY + chartBoundary.top
+            val x = (r.first - displayBoundary.left) * scaleX + chartBoundary.left
+            val y = (r.second - displayBoundary.top) * scaleY + chartBoundary.top
             Pair(x, chartBoundary.height() - y)
 
         }.forEach {
