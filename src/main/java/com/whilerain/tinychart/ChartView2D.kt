@@ -1,5 +1,6 @@
 package com.whilerain.tinychart
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -10,7 +11,7 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import com.whilerain.tinychart.utils.UiUtil
 
-class ChartView2D @JvmOverloads constructor(
+open class ChartView2D @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
@@ -59,7 +60,11 @@ class ChartView2D @JvmOverloads constructor(
     /**
      * View data
      */
-    private var chartBoundary: Rect = Rect(0, 0, 0, 0)
+    var chartBoundary: Rect = Rect(0, 0, 0, 0)
+
+
+    private var percent = 0f
+    private var animator: ValueAnimator? = null
 
     /**
      * Touch listener
@@ -151,6 +156,22 @@ class ChartView2D @JvmOverloads constructor(
         }
     }
 
+    fun show(){
+        percent = 1f
+        invalidate()
+    }
+
+    fun animate(duration: Long) {
+        percent = 0f
+        if (animator != null) animator!!.cancel()
+        animator = ValueAnimator.ofFloat(0f, 1f).setDuration(duration)
+        animator!!.addUpdateListener(ValueAnimator.AnimatorUpdateListener {
+            percent = it.animatedValue as Float
+            invalidate()
+        })
+        animator!!.start()
+    }
+
     /**
      * Clear data
      */
@@ -196,9 +217,10 @@ class ChartView2D @JvmOverloads constructor(
     }
 
     private fun drawLines(canvas: Canvas) {
+
         for (i in lines.indices) {
             linePaint.color = colors[i % colors.size]
-            lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, linePaint)
+            lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, percent, linePaint)
         }
     }
 
