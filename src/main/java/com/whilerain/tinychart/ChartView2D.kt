@@ -48,14 +48,14 @@ open class ChartView2D @JvmOverloads constructor(
     /**
      * Raw data
      */
-    private var lines: ArrayList<Line2D> = ArrayList()
-    private var colors: List<Int> = listOf(Color.BLACK, Color.RED, Color.BLUE)
+    protected var lines: ArrayList<Line2D> = ArrayList()
+    protected var lineColors: List<Int> = listOf(Color.RED, Color.BLUE)
 
     // The exact data boundary
     private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
 
     // The chart display boundary
-    private var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
+    protected var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
 
     /**
      * View data
@@ -186,7 +186,7 @@ open class ChartView2D @JvmOverloads constructor(
      * Given the color list
      */
     fun setColors(colors: List<Int>) {
-        this.colors = colors
+        this.lineColors = colors
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -219,7 +219,7 @@ open class ChartView2D @JvmOverloads constructor(
     private fun drawLines(canvas: Canvas) {
 
         for (i in lines.indices) {
-            linePaint.color = colors[i % colors.size]
+            linePaint.color = lineColors[i % lineColors.size]
             lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, percent, linePaint)
         }
     }
