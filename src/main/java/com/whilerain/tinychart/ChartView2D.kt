@@ -11,7 +11,7 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import com.whilerain.tinychart.utils.UiUtil
 
-class ChartView2D @JvmOverloads constructor(
+open class ChartView2D @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
@@ -59,7 +59,7 @@ class ChartView2D @JvmOverloads constructor(
     /**
      * View data
      */
-    private var chartBoundary: Rect = Rect(0, 0, 0, 0)
+    var chartBoundary: Rect = Rect(0, 0, 0, 0)
 
 
     private var percent = 0f
