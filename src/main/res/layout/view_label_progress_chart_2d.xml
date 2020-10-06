@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:clipChildren="false"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/vYname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="90"
+        android:text="SPEED"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="@id/ylabels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ylabels"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/vChart"
+        app:layout_constraintStart_toEndOf="@id/vYname"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/vY4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vY3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vY2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vY1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vY0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10" />
+    </LinearLayout>
+
+    <com.whilerain.tinychart.ProgressedChart2D
+        android:id="@+id/vChart"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ylabels"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/xlabels"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/vChart"
+        app:layout_constraintStart_toStartOf="@id/vChart"
+        app:layout_constraintTop_toBottomOf="@id/vChart">
+
+        <TextView
+            android:id="@+id/vX0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vX1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vX2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vX3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10"
+
+            />
+
+        <TextView
+            android:id="@+id/vX4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/vXname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIME"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/vChart"
+        app:layout_constraintTop_toBottomOf="@id/xlabels" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

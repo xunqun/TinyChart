@@ -55,7 +55,7 @@ open class ChartView2D @JvmOverloads constructor(
     private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
 
     // The chart display boundary
-    protected var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
+    var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
 
     /**
      * View data
