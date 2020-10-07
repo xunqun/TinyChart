@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:clipChildren="false"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clipChildren="false">
 
     <TextView
         android:id="@+id/vYname"
@@ -16,6 +16,15 @@
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/vInstantValueList"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/view_instant_value"/>
 
     <LinearLayout
         android:id="@+id/ylabels"
@@ -74,7 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/vInstantValueList"
         app:layout_constraintStart_toEndOf="@id/ylabels"
         app:layout_constraintTop_toTopOf="parent" />
 
