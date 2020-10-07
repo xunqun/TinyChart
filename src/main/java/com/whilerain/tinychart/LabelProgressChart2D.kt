@@ -61,6 +61,10 @@ class LabelProgressChart2D @JvmOverloads constructor(
         chart().animate(1000)
     }
 
+    fun setColor(colors: List<Int>){
+        vProgressChart.lineColors = colors
+    }
+
     fun animate(t: Long){
         chart().animate(t)
     }
