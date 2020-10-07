@@ -104,7 +104,8 @@ open class ProgressedChart2D @JvmOverloads constructor(
     private fun drawMark(canvas: Canvas) {
         val markedPair = arrayListOf<Pair<Float, Float>>()
         for (i in lines.indices) {
-            val point = lines[i].findValueOfProgress(progress)
+            val  target = displayBoundary.left + displayBoundary.width() * progress
+            val point = lines[i].findValueOfProgress(target)
             markPaint.color = lineColors[i % lineColors.size]
             lines[i].drawMark(canvas, displayBoundary, chartBoundary, point, markPaint)
             markedPair.add(point)

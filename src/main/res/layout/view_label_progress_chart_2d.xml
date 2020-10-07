@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:clipChildren="false"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/vYname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:rotation="90"
+        android:rotation="-90"
+        android:textSize="@dimen/font_small"
         android:text="SPEED"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
@@ -22,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/vChart"
+        android:textSize="@dimen/font_small"
+        app:layout_constraintBottom_toBottomOf="@id/vProgressChart"
         app:layout_constraintStart_toEndOf="@id/vYname"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -31,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -40,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -49,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -58,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -66,14 +72,16 @@
             android:id="@+id/vY0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/font_small"
             android:text="10" />
     </LinearLayout>
 
     <com.whilerain.tinychart.ProgressedChart2D
-        android:id="@+id/vChart"
+        android:id="@+id/vProgressChart"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="140dp"
         android:layout_marginStart="8dp"
+        android:background="@drawable/shape_background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ylabels"
         app:layout_constraintTop_toTopOf="parent" />
@@ -83,15 +91,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/vChart"
-        app:layout_constraintStart_toStartOf="@id/vChart"
-        app:layout_constraintTop_toBottomOf="@id/vChart">
+        app:layout_constraintEnd_toEndOf="@id/vProgressChart"
+        app:layout_constraintStart_toStartOf="@id/vProgressChart"
+        app:layout_constraintTop_toBottomOf="@id/vProgressChart">
 
         <TextView
             android:id="@+id/vX0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -101,6 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -110,6 +120,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -119,6 +130,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/font_small"
             android:text="10"
 
             />
@@ -127,7 +139,9 @@
             android:id="@+id/vX4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/font_small"
             android:text="10" />
+
     </LinearLayout>
 
     <TextView
@@ -136,8 +150,9 @@
         android:layout_height="wrap_content"
         android:text="TIME"
         android:textAllCaps="true"
+        android:textSize="@dimen/font_small"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/vChart"
+        app:layout_constraintStart_toStartOf="@id/vProgressChart"
         app:layout_constraintTop_toBottomOf="@id/xlabels" />
 
 

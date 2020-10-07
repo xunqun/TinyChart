@@ -18,7 +18,7 @@ open class ChartView2D @JvmOverloads constructor(
     /**
      * The color of the chart frame
      */
-    private var mainColor = Color.BLACK
+    private var mainColor = Color.LTGRAY
         set(value) {
             field = value
             framePaint.color = value
@@ -118,7 +118,7 @@ open class ChartView2D @JvmOverloads constructor(
                 R.styleable.TinyChart,
                 0, 0
             ).apply {
-                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.BLACK)
+                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.WHITE)
                 strokeWidth = getDimensionPixelSize(
                     R.styleable.TinyChart_lineStrokeWidth,
                     UiUtil.dpToPx(1)
@@ -233,13 +233,13 @@ open class ChartView2D @JvmOverloads constructor(
                 chartBoundary.bottom.toFloat() - 1,
                 framePaint
             )
-            canvas.drawLine(
-                chartBoundary.left.toFloat() + 1,
-                chartBoundary.bottom.toFloat(),
-                chartBoundary.left.toFloat() + 1,
-                chartBoundary.top.toFloat(),
-                framePaint
-            )
+//            canvas.drawLine(
+//                chartBoundary.left.toFloat() + 1,
+//                chartBoundary.bottom.toFloat(),
+//                chartBoundary.left.toFloat() + 1,
+//                chartBoundary.top.toFloat(),
+//                framePaint
+//            )
         }
     }
 }

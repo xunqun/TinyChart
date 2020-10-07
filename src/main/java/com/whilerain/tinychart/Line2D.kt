@@ -52,8 +52,7 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
 
     }
 
-    fun findValueOfProgress(p: Float): Pair<Float, Float> {
-        val target: Float = (raws.last().first - raws.first().first) * p + raws.first().first
+    fun findValueOfProgress(target: Float): Pair<Float, Float> {
         var minDelta = Float.MAX_VALUE
         var result = raws[0]
         for (pair in raws) {

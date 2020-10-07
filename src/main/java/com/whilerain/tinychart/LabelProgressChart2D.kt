@@ -33,11 +33,15 @@ class LabelProgressChart2D @JvmOverloads constructor(
         super.draw(canvas)
     }
 
-    fun chart() = view.findViewById<ProgressedChart2D>(R.id.vChart)
+    private fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
 
+    fun setData(data: ArrayList<Line2D>){
+        chart().addData(data)
+        updateFrame()
+        chart().animate(1000)
+    }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
+    fun updateFrame(){
         val bound = chart().displayBoundary
         vX0.text = String.format("%.0f", bound.left)
         vX1.text = String.format("%.0f", bound.left + bound.width() * 0.25)
