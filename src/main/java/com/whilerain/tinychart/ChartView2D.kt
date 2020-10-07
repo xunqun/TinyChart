@@ -49,7 +49,7 @@ open class ChartView2D @JvmOverloads constructor(
      * Raw data
      */
     protected var lines: ArrayList<Line2D> = ArrayList()
-    protected var lineColors: List<Int> = listOf(Color.RED, Color.BLUE)
+    var lineColors: List<Int> = listOf(Color.RED, Color.BLUE)
 
     // The exact data boundary
     private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
