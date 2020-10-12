@@ -129,8 +129,7 @@ open class ProgressedChart2D @JvmOverloads constructor(
             y = chartBoundary.height() - y - UiUtil.dpToPx(8)
             y = if (y - UiUtil.dpToPx(20) < chartBoundary.top) UiUtil.dpToPx(20).toFloat() else y
             val textWidth = textPaint.measureText(text) + UiUtil.dpToPx(8)
-            x =
-                if (x + textWidth > chartBoundary.right) chartBoundary.right.toFloat() - textWidth else x
+            x = if (x + textWidth > chartBoundary.right) chartBoundary.right.toFloat() - textWidth else x
             canvas.drawRoundRect(
                 RectF(x, y - UiUtil.dpToPx(20), x + textWidth, y),
                 10f,
@@ -138,8 +137,8 @@ open class ProgressedChart2D @JvmOverloads constructor(
                 blockPaint
             )
             canvas.drawText(text, x + UiUtil.dpToPx(4), y - UiUtil.dpToPx(4).toFloat(), textPaint)
-            _markedPoint.value = markedPair
         }
+        _markedPoint.value = markedPair
     }
 
     private fun drawProgressLine(canvas: Canvas?) {
