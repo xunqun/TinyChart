@@ -21,6 +21,11 @@ class LabelProgressChart2D @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    enum class Type{
+        line, dot
+    }
+
+
     private var view: ConstraintLayout =
         LayoutInflater.from(context)
             .inflate(R.layout.view_label_progress_chart_2d, this) as ConstraintLayout
@@ -36,6 +41,7 @@ class LabelProgressChart2D @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context)
         }
     }
+    var drawType = Type.line
 
     var xname: String = "TIME"
         set(value) {
@@ -48,6 +54,9 @@ class LabelProgressChart2D @JvmOverloads constructor(
             field = value
             vYname.text = value
         }
+
+    var xformat = "%.0f"
+    var yformat = "%.0f"
 
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
@@ -75,17 +84,17 @@ class LabelProgressChart2D @JvmOverloads constructor(
 
     fun updateFrame() {
         val bound = chart().displayBoundary
-        vX0.text = String.format("%.0f", bound.left)
-        vX1.text = String.format("%.0f", bound.left + bound.width() * 0.25)
-        vX2.text = String.format("%.0f", bound.left + bound.width() * 0.5)
-        vX3.text = String.format("%.0f", bound.left + bound.width() * 0.75)
-        vX4.text = String.format("%.0f", bound.right)
+        vX0.text = String.format(xformat, bound.left)
+        vX1.text = String.format(xformat, bound.left + bound.width() * 0.25)
+        vX2.text = String.format(xformat, bound.left + bound.width() * 0.5)
+        vX3.text = String.format(xformat, bound.left + bound.width() * 0.75)
+        vX4.text = String.format(xformat, bound.right)
 
-        vY0.text = String.format("%.0f", bound.top)
-        vY1.text = String.format("%.0f", bound.top + bound.height() * 0.25)
-        vY2.text = String.format("%.0f", bound.top + bound.height() * 0.5)
-        vY3.text = String.format("%.0f", bound.top + bound.height() * 0.75)
-        vY4.text = String.format("%.0f", bound.bottom)
+        vY0.text = String.format(yformat, bound.top)
+        vY1.text = String.format(yformat, bound.top + bound.height() * 0.25)
+        vY2.text = String.format(yformat, bound.top + bound.height() * 0.5)
+        vY3.text = String.format(yformat, bound.top + bound.height() * 0.75)
+        vY4.text = String.format(yformat, bound.bottom)
     }
 
     inner class InstantValueAdapter : RecyclerView.Adapter<InstantVh>() {
@@ -108,7 +117,6 @@ class LabelProgressChart2D @JvmOverloads constructor(
         override fun getItemCount(): Int {
             return list.size
         }
-
     }
 
     inner class InstantVh(override val containerView: View) :
