@@ -30,6 +30,8 @@ open class ChartView2D @JvmOverloads constructor(
             field = value
         }
 
+    var drawAsDot = false
+
     /**
      * Paints of drawing
      */
@@ -124,6 +126,7 @@ open class ChartView2D @JvmOverloads constructor(
                     UiUtil.dpToPx(1)
 
                 ).toFloat()
+                drawAsDot = getBoolean(R.styleable.TinyChart_drawAsDot, false)
             }
         }
     }
@@ -220,7 +223,25 @@ open class ChartView2D @JvmOverloads constructor(
 
         for (i in lines.indices) {
             linePaint.color = lineColors[i % lineColors.size]
-            lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, percent, linePaint)
+            if(drawAsDot){
+                lines[i].drawDot(
+                    canvas,
+                    displayBoundary,
+                    chartBoundary,
+                    lines[i].raws,
+                    percent,
+                    linePaint
+                )
+            }else {
+                lines[i].drawPath(
+                    canvas,
+                    displayBoundary,
+                    chartBoundary,
+                    lines[i].raws,
+                    percent,
+                    linePaint
+                )
+            }
         }
     }
 

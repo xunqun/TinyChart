@@ -42,6 +42,10 @@ class LabelProgressChart2D @JvmOverloads constructor(
         }
     }
     var drawType = Type.line
+    set(value){
+        field = value
+        vProgressChart.drawAsDot = value == Type.dot
+    }
 
     var xname: String = "TIME"
         set(value) {
