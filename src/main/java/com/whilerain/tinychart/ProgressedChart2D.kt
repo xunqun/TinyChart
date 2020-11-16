@@ -42,9 +42,10 @@ open class ProgressedChart2D @JvmOverloads constructor(
     private val levelPaint = Paint().apply {
         style = Paint.Style.STROKE
         color = Color.WHITE
+        alpha = 160
         isAntiAlias = false
         strokeWidth = 1f
-        pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f)
+        pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
     }
 
     private val textPaint = Paint().apply {
@@ -102,6 +103,17 @@ open class ProgressedChart2D @JvmOverloads constructor(
                 y,
                 chartBoundary.right.toFloat(),
                 y,
+                levelPaint
+            )
+        }
+
+        (1..3).forEach{i ->
+            val x = chartBoundary.left + chartBoundary.width() * 0.25f * i
+            c.drawLine(
+                x,
+                chartBoundary.top.toFloat(),
+                x,
+                chartBoundary.bottom + 20f,
                 levelPaint
             )
         }
