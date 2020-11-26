@@ -11,14 +11,14 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import com.whilerain.tinychart.utils.UiUtil
 
-class ChartView2D @JvmOverloads constructor(
+open class ChartView2D @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     /**
      * The color of the chart frame
      */
-    private var mainColor = Color.BLACK
+    private var mainColor = Color.LTGRAY
         set(value) {
             field = value
             framePaint.color = value
@@ -29,6 +29,8 @@ class ChartView2D @JvmOverloads constructor(
             linePaint.strokeWidth = value
             field = value
         }
+
+    var drawAsDot = false
 
     /**
      * Paints of drawing
@@ -42,24 +44,25 @@ class ChartView2D @JvmOverloads constructor(
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         strokeWidth = UiUtil.dpToPx(1).toFloat()
         style = Paint.Style.STROKE
+//        pathEffect = CornerPathEffect(UiUtil.dpToPx(16).toFloat())
     }
 
     /**
      * Raw data
      */
-    private var lines: ArrayList<Line2D> = ArrayList()
-    private var colors: List<Int> = listOf(Color.BLACK, Color.RED, Color.BLUE)
+    protected var lines: ArrayList<Line2D> = ArrayList()
+    var lineColors: List<Int> = listOf(Color.YELLOW, Color.CYAN)
 
     // The exact data boundary
     private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
 
     // The chart display boundary
-    private var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
+    var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
 
     /**
      * View data
      */
-    private var chartBoundary: Rect = Rect(0, 0, 0, 0)
+    var chartBoundary: Rect = Rect(0, 0, 0, 0)
 
 
     private var percent = 0f
@@ -117,12 +120,13 @@ class ChartView2D @JvmOverloads constructor(
                 R.styleable.TinyChart,
                 0, 0
             ).apply {
-                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.BLACK)
+                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.WHITE)
                 strokeWidth = getDimensionPixelSize(
                     R.styleable.TinyChart_lineStrokeWidth,
                     UiUtil.dpToPx(1)
 
                 ).toFloat()
+                drawAsDot = getBoolean(R.styleable.TinyChart_drawAsDot, false)
             }
         }
     }
@@ -185,7 +189,7 @@ class ChartView2D @JvmOverloads constructor(
      * Given the color list
      */
     fun setColors(colors: List<Int>) {
-        this.colors = colors
+        this.lineColors = colors
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -218,8 +222,26 @@ class ChartView2D @JvmOverloads constructor(
     private fun drawLines(canvas: Canvas) {
 
         for (i in lines.indices) {
-            linePaint.color = colors[i % colors.size]
-            lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, percent, linePaint)
+            linePaint.color = lineColors[i % lineColors.size]
+            if(drawAsDot){
+                lines[i].drawDot(
+                    canvas,
+                    displayBoundary,
+                    chartBoundary,
+                    lines[i].raws,
+                    percent,
+                    linePaint
+                )
+            }else {
+                lines[i].drawPath(
+                    canvas,
+                    displayBoundary,
+                    chartBoundary,
+                    lines[i].raws,
+                    percent,
+                    linePaint
+                )
+            }
         }
     }
 
@@ -230,13 +252,6 @@ class ChartView2D @JvmOverloads constructor(
                 chartBoundary.bottom.toFloat() - 1,
                 chartBoundary.right.toFloat(),
                 chartBoundary.bottom.toFloat() - 1,
-                framePaint
-            )
-            canvas.drawLine(
-                chartBoundary.left.toFloat() + 1,
-                chartBoundary.bottom.toFloat(),
-                chartBoundary.left.toFloat() + 1,
-                chartBoundary.top.toFloat(),
                 framePaint
             )
         }
