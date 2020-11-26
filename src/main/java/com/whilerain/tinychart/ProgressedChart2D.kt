@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.whilerain.tinychart.utils.UiUtil
 
 open class ProgressedChart2D @JvmOverloads constructor(
@@ -32,15 +34,18 @@ open class ProgressedChart2D @JvmOverloads constructor(
         strokeWidth = UiUtil.dpToPx(1).toFloat()
     }
 
+    private val _markedPoint = MutableLiveData<ArrayList<Pair<Float, Float>>>()
+
     /**
      * Paint to draw current progress line
      */
     private val levelPaint = Paint().apply {
         style = Paint.Style.STROKE
         color = Color.WHITE
+        alpha = 160
         isAntiAlias = false
         strokeWidth = 1f
-        pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f)
+        pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
     }
 
     private val textPaint = Paint().apply {
@@ -58,6 +63,8 @@ open class ProgressedChart2D @JvmOverloads constructor(
         color = Color.WHITE
         isAntiAlias = false
     }
+
+    fun obsMarkedPoint(): LiveData<ArrayList<Pair<Float, Float>>> = _markedPoint
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.let {
@@ -99,32 +106,51 @@ open class ProgressedChart2D @JvmOverloads constructor(
                 levelPaint
             )
         }
+
+        (1..3).forEach{i ->
+            val x = chartBoundary.left + chartBoundary.width() * 0.25f * i
+            c.drawLine(
+                x,
+                chartBoundary.top.toFloat(),
+                x,
+                chartBoundary.bottom + 20f,
+                levelPaint
+            )
+        }
     }
 
     private fun drawMark(canvas: Canvas) {
         val markedPair = arrayListOf<Pair<Float, Float>>()
         for (i in lines.indices) {
-            val point = lines[i].findValueOfProgress(progress)
+            val target = displayBoundary.left + displayBoundary.width() * progress
+            val point = lines[i].findValueOfProgress(target)
             markPaint.color = lineColors[i % lineColors.size]
             lines[i].drawMark(canvas, displayBoundary, chartBoundary, point, markPaint)
             markedPair.add(point)
         }
 
         if (lines.size == 2) {
-            val delta = String.format("%.2f",  markedPair[0].second - markedPair[1].second)
-            val text = if(markedPair[0].second - markedPair[1].second >= 0f) "+$delta" else "$delta"
+            val delta = String.format("%.2f", markedPair[0].second - markedPair[1].second)
+            val text =
+                if (markedPair[0].second - markedPair[1].second >= 0f) "+$delta" else "$delta"
             var x = chartBoundary.left + chartBoundary.width() * progress + UiUtil.dpToPx(8)
 
             var y =
                 if (markedPair[0].second >= markedPair[1].second) (markedPair[0].second - displayBoundary.top) / displayBoundary.height() * chartBoundary.height()
                 else (markedPair[1].second - displayBoundary.top) / displayBoundary.height() * chartBoundary.height()
-            y = chartBoundary.height() - y  - UiUtil.dpToPx(8)
-            y = if ( y - UiUtil.dpToPx(20) < chartBoundary.top ) UiUtil.dpToPx(20).toFloat() else y
+            y = chartBoundary.height() - y - UiUtil.dpToPx(8)
+            y = if (y - UiUtil.dpToPx(20) < chartBoundary.top) UiUtil.dpToPx(20).toFloat() else y
             val textWidth = textPaint.measureText(text) + UiUtil.dpToPx(8)
             x = if (x + textWidth > chartBoundary.right) chartBoundary.right.toFloat() - textWidth else x
-            canvas.drawRoundRect(RectF(x, y - UiUtil.dpToPx(20), x + textWidth, y ),10f,10f, blockPaint)
+            canvas.drawRoundRect(
+                RectF(x, y - UiUtil.dpToPx(20), x + textWidth, y),
+                10f,
+                10f,
+                blockPaint
+            )
             canvas.drawText(text, x + UiUtil.dpToPx(4), y - UiUtil.dpToPx(4).toFloat(), textPaint)
         }
+        _markedPoint.value = markedPair
     }
 
     private fun drawProgressLine(canvas: Canvas?) {

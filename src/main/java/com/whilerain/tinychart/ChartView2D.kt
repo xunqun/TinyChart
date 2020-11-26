@@ -18,7 +18,7 @@ open class ChartView2D @JvmOverloads constructor(
     /**
      * The color of the chart frame
      */
-    private var mainColor = Color.BLACK
+    private var mainColor = Color.LTGRAY
         set(value) {
             field = value
             framePaint.color = value
@@ -29,6 +29,8 @@ open class ChartView2D @JvmOverloads constructor(
             linePaint.strokeWidth = value
             field = value
         }
+
+    var drawAsDot = false
 
     /**
      * Paints of drawing
@@ -49,7 +51,7 @@ open class ChartView2D @JvmOverloads constructor(
      * Raw data
      */
     protected var lines: ArrayList<Line2D> = ArrayList()
-    protected var lineColors: List<Int> = listOf(Color.RED, Color.BLUE)
+    var lineColors: List<Int> = listOf(Color.YELLOW, Color.CYAN)
 
     // The exact data boundary
     private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
@@ -118,12 +120,13 @@ open class ChartView2D @JvmOverloads constructor(
                 R.styleable.TinyChart,
                 0, 0
             ).apply {
-                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.BLACK)
+                mainColor = getColor(R.styleable.TinyChart_mainColor, Color.WHITE)
                 strokeWidth = getDimensionPixelSize(
                     R.styleable.TinyChart_lineStrokeWidth,
                     UiUtil.dpToPx(1)
 
                 ).toFloat()
+                drawAsDot = getBoolean(R.styleable.TinyChart_drawAsDot, false)
             }
         }
     }
@@ -220,7 +223,25 @@ open class ChartView2D @JvmOverloads constructor(
 
         for (i in lines.indices) {
             linePaint.color = lineColors[i % lineColors.size]
-            lines[i].drawPath(canvas, displayBoundary, chartBoundary, lines[i].raws, percent, linePaint)
+            if(drawAsDot){
+                lines[i].drawDot(
+                    canvas,
+                    displayBoundary,
+                    chartBoundary,
+                    lines[i].raws,
+                    percent,
+                    linePaint
+                )
+            }else {
+                lines[i].drawPath(
+                    canvas,
+                    displayBoundary,
+                    chartBoundary,
+                    lines[i].raws,
+                    percent,
+                    linePaint
+                )
+            }
         }
     }
 
@@ -233,13 +254,13 @@ open class ChartView2D @JvmOverloads constructor(
                 chartBoundary.bottom.toFloat() - 1,
                 framePaint
             )
-            canvas.drawLine(
-                chartBoundary.left.toFloat() + 1,
-                chartBoundary.bottom.toFloat(),
-                chartBoundary.left.toFloat() + 1,
-                chartBoundary.top.toFloat(),
-                framePaint
-            )
+//            canvas.drawLine(
+//                chartBoundary.left.toFloat() + 1,
+//                chartBoundary.bottom.toFloat(),
+//                chartBoundary.left.toFloat() + 1,
+//                chartBoundary.top.toFloat(),
+//                framePaint
+//            )
         }
     }
 }
