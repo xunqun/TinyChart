@@ -51,10 +51,10 @@ open class ChartView2D @JvmOverloads constructor(
      * Raw data
      */
     protected var lines: ArrayList<Line2D> = ArrayList()
-    var lineColors: List<Int> = listOf(Color.YELLOW, Color.CYAN)
+    var lineColors: List<Int> = listOf(Color.YELLOW, Color.CYAN, Color.BLUE)
 
     // The exact data boundary
-    private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
+    var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
 
     // The chart display boundary
     var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)

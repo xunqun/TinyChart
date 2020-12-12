@@ -1,6 +1,7 @@
 package com.whilerain.tinychart
 
 import android.graphics.*
+import android.text.TextPaint
 import android.util.Log
 
 class Line2D(val raws: List<Pair<Float, Float>>) {
@@ -64,7 +65,9 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         canvas: Canvas, displayBoundary: RectF,
         chartBoundary: Rect,
         point: Pair<Float, Float>,
-        paint: Paint
+        paint: Paint,
+        textPaint: TextPaint
+
     ) {
         val scaleX = Math.abs(chartBoundary.width() / displayBoundary.width())
         val scaleY = Math.abs(chartBoundary.height() / displayBoundary.height())
@@ -73,7 +76,9 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         y = chartBoundary.height() - y
         canvas.drawOval(RectF(x - 10, y - 10, x + 10, y + 10), paint)
         canvas.drawLine(chartBoundary.left.toFloat(), y, chartBoundary.right.toFloat(), y, paint)
-
+        val text = String.format("%.2f", point.second)
+        val width = textPaint.measureText(text) + 10
+        canvas.drawText(text, chartBoundary.right - width, y , textPaint)
     }
 
     fun findValueOfProgress(target: Float): Pair<Float, Float> {

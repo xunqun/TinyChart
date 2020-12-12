@@ -30,16 +30,16 @@ class LabelProgressChart2D @JvmOverloads constructor(
         LayoutInflater.from(context)
             .inflate(R.layout.view_label_progress_chart_2d, this) as ConstraintLayout
 
-    private val  valueAdapter = InstantValueAdapter()
+    private val valueAdapter = InstantValueAdapter()
     init {
         vProgressChart.obsMarkedPoint().observe(context as LifecycleOwner, Observer {
             valueAdapter.setData(it)
         })
 
-        vInstantValueList.apply {
-            adapter = valueAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
+//        vInstantValueList.apply {
+//            adapter = valueAdapter
+//            layoutManager = LinearLayoutManager(context)
+//        }
     }
     var drawType = Type.line
     set(value){
