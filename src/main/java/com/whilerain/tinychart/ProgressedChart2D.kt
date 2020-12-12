@@ -2,6 +2,7 @@ package com.whilerain.tinychart
 
 import android.content.Context
 import android.graphics.*
+import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.lifecycle.LiveData
@@ -16,6 +17,7 @@ open class ProgressedChart2D @JvmOverloads constructor(
 
     /**
      * The current progress to show on chart
+     * between 0 to 1
      */
     var progress = 0f
         set(value) {
@@ -47,8 +49,9 @@ open class ProgressedChart2D @JvmOverloads constructor(
         pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f)
     }
 
-    private val textPaint = Paint().apply {
-        textSize = UiUtil.dpToPx(14).toFloat()
+    private val textPaint = TextPaint().apply {
+        textSize = UiUtil.dpToPx(12).toFloat()
+        color = Color.LTGRAY
     }
 
     private val markPaint = Paint().apply {
@@ -87,14 +90,14 @@ open class ProgressedChart2D @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
-            drawLevels(it)
+            drawLevelLines(it)
             drawProgressLine(it)
             drawMark(it)
         }
 
     }
 
-    private fun drawLevels(c: Canvas) {
+    private fun drawLevelLines(c: Canvas) {
         for (i in 0..3) {
             val y = chartBoundary.top + chartBoundary.height() * 0.25f * i
             c.drawLine(
@@ -113,7 +116,8 @@ open class ProgressedChart2D @JvmOverloads constructor(
             val target = displayBoundary.left + displayBoundary.width() * progress
             val point = lines[i].findValueOfProgress(target)
             markPaint.color = lineColors[i % lineColors.size]
-            lines[i].drawMark(canvas, displayBoundary, chartBoundary, point, markPaint)
+            textPaint.color = lineColors[i % lineColors.size]
+            lines[i].drawMark(canvas, displayBoundary, chartBoundary, point, markPaint, textPaint = textPaint)
             markedPair.add(point)
         }
 
@@ -129,26 +133,40 @@ open class ProgressedChart2D @JvmOverloads constructor(
             y = chartBoundary.height() - y - UiUtil.dpToPx(8)
             y = if (y - UiUtil.dpToPx(20) < chartBoundary.top) UiUtil.dpToPx(20).toFloat() else y
             val textWidth = textPaint.measureText(text) + UiUtil.dpToPx(8)
-            x = if (x + textWidth > chartBoundary.right) chartBoundary.right.toFloat() - textWidth else x
+            x =
+                if (x + textWidth > chartBoundary.right) chartBoundary.right.toFloat() - textWidth else x
             canvas.drawRoundRect(
                 RectF(x, y - UiUtil.dpToPx(20), x + textWidth, y),
                 10f,
                 10f,
                 blockPaint
             )
+            textPaint.color = Color.BLACK
             canvas.drawText(text, x + UiUtil.dpToPx(4), y - UiUtil.dpToPx(4).toFloat(), textPaint)
         }
         _markedPoint.value = markedPair
     }
 
     private fun drawProgressLine(canvas: Canvas?) {
-        val x = chartBoundary.width() * progress + chartBoundary.left
+        var x: Float = chartBoundary.width() * progress + chartBoundary.left
+        x = if (x > chartBoundary.right) {
+            chartBoundary.right.toFloat()
+        } else x
         canvas?.drawLine(
             x,
             chartBoundary.top.toFloat(),
             x,
             chartBoundary.bottom.toFloat(),
             linePaint
+        )
+
+        val value = dataBoundary.left + if(progress > 1 ) dataBoundary.width() else dataBoundary.width() * progress
+        textPaint.color = Color.LTGRAY
+        canvas?.drawText(
+            String.format("%.1f", value),
+            x + 10,
+            chartBoundary.bottom.toFloat() - 10,
+            textPaint
         )
     }
 }

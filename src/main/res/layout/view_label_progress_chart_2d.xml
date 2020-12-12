@@ -19,16 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vInstantValueList"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/vProgressChart"
-        app:layout_constraintBottom_toBottomOf="@id/vProgressChart"
-        tools:listitem="@layout/view_instant_value"/>
-
     <LinearLayout
         android:id="@+id/ylabels"
         android:layout_width="wrap_content"
@@ -99,7 +89,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/img_chart_bg"
-        app:layout_constraintEnd_toStartOf="@id/vInstantValueList"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ylabels"
         app:layout_constraintTop_toTopOf="parent" />
 
