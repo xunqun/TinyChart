@@ -44,7 +44,7 @@ open class ChartView2D @JvmOverloads constructor(
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         strokeWidth = UiUtil.dpToPx(1).toFloat()
         style = Paint.Style.STROKE
-//        pathEffect = CornerPathEffect(UiUtil.dpToPx(16).toFloat())
+        pathEffect = CornerPathEffect(UiUtil.dpToPx(16).toFloat())
     }
 
     /**
