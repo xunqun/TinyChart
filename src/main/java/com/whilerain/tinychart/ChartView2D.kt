@@ -135,7 +135,7 @@ open class ChartView2D @JvmOverloads constructor(
      * Provides data list contains (x, y) as Pair
      */
     fun addData(lines: ArrayList<Line2D>) {
-        if (lines.isNotEmpty()) {
+        if (lines.isNotEmpty() && lines[0].raws.isNotEmpty()) {
             dataBoundary.left = lines[0].raws[0].first
             dataBoundary.right = lines[0].raws[0].first
             dataBoundary.top = lines[0].raws[0].second
