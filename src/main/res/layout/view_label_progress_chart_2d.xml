@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:clipChildren="false"
     android:layout_height="wrap_content">
@@ -164,8 +163,9 @@
         android:textAllCaps="true"
         android:textSize="@dimen/font_small"
         android:layout_marginLeft="8dp"
-        app:layout_constraintStart_toEndOf="@id/xlabels"
-        app:layout_constraintTop_toTopOf="@id/xlabels" />
+        app:layout_constraintStart_toStartOf="@id/xlabels"
+        app:layout_constraintEnd_toEndOf="@id/xlabels"
+        app:layout_constraintTop_toBottomOf="@id/xlabels" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
