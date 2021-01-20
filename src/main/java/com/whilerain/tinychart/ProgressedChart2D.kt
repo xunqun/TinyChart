@@ -71,8 +71,8 @@ open class ProgressedChart2D @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.let {
-            val x = it.getX()
-            val y = it.getY()
+            val x = it.x
+            val y = it.y
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
                     var p = (x - chartBoundary.left) / chartBoundary.width()

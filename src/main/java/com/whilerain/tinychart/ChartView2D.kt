@@ -200,11 +200,6 @@ open class ChartView2D @JvmOverloads constructor(
         chartBoundary.bottom = bottom - top - paddingTop - paddingBottom
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-    }
-
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         scaleDetector.onTouchEvent(event)
         guestureDetector.onTouchEvent(event)

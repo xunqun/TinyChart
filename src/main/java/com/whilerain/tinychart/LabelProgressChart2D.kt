@@ -1,7 +1,6 @@
 package com.whilerain.tinychart
 
 import android.content.Context
-import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_instant_value.*
@@ -61,10 +59,6 @@ class LabelProgressChart2D @JvmOverloads constructor(
 
     var xformat = "%.0f"
     var yformat = "%.0f"
-
-    override fun draw(canvas: Canvas?) {
-        super.draw(canvas)
-    }
 
     private fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
 
