@@ -2,7 +2,6 @@ package com.whilerain.tinychart
 
 import android.graphics.*
 import android.text.TextPaint
-import android.util.Log
 
 class Line2D(val raws: List<Pair<Float, Float>>) {
     val TAG = javaClass.simpleName
@@ -82,15 +81,19 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
     }
 
     fun findValueOfProgress(target: Float): Pair<Float, Float> {
-        var minDelta = Float.MAX_VALUE
-        var result = raws[0]
-        for (pair in raws) {
-            val delta = Math.abs(pair.first - target)
-            if (delta < minDelta) {
-                result = pair
-                minDelta = delta
+        try {
+            var minDelta = Float.MAX_VALUE
+            var result = raws[0]
+            for (pair in raws) {
+                val delta = Math.abs(pair.first - target)
+                if (delta < minDelta) {
+                    result = pair
+                    minDelta = delta
+                }
             }
+            return result
+        } catch (e: IndexOutOfBoundsException) {
+            return Pair(0f, 0f)
         }
-        return result
     }
 }
