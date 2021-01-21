@@ -24,7 +24,7 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
             Pair(x, chartBoundary.height() - y)
 
         }.forEach {
-            canvas.drawOval(RectF(it.first-5, it.second- 5 , it.first + 5, it.second + 5), paint)
+            canvas.drawOval(RectF(it.first - 5, it.second - 5, it.first + 5, it.second + 5), paint)
         }
     }
 
@@ -69,6 +69,8 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
 
     ) {
         val scaleX = Math.abs(chartBoundary.width() / displayBoundary.width())
+
+
         val scaleY = Math.abs(chartBoundary.height() / displayBoundary.height())
         val x = (point.first - displayBoundary.left) * scaleX + chartBoundary.left
         var y = (point.second - displayBoundary.top) * scaleY + chartBoundary.top
@@ -77,7 +79,12 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         canvas.drawLine(chartBoundary.left.toFloat(), y, chartBoundary.right.toFloat(), y, paint)
         val text = String.format("%.2f", point.second)
         val width = textPaint.measureText(text) + 10
-        canvas.drawText(text, chartBoundary.right - width, y , textPaint)
+        canvas.drawText(
+            text,
+            if (x < chartBoundary.width() / 2) chartBoundary.right - width else chartBoundary.left.toFloat(),
+            if (y - chartBoundary.height() / 2 < chartBoundary.top) y + 30 else y,
+            textPaint
+        )
     }
 
     fun findValueOfProgress(target: Float): Pair<Float, Float> {

@@ -174,9 +174,10 @@ open class ProgressedChart2D @JvmOverloads constructor(
 
         val value = dataBoundary.left + if(progress > 1 ) dataBoundary.width() else dataBoundary.width() * progress
         textPaint.color = Color.LTGRAY
+        val space = textPaint.measureText(String.format("%.1f", value))
         canvas?.drawText(
             String.format("%.1f", value),
-            x + 10,
+            if (x + space < width) x + 10 else x - space,
             chartBoundary.bottom.toFloat() - 10,
             textPaint
         )
