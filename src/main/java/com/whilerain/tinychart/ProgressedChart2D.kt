@@ -129,7 +129,15 @@ open class ProgressedChart2D @JvmOverloads constructor(
             val point = lines[i].findValueOfProgress(target)
             markPaint.color = lineColors[i % lineColors.size]
             textPaint.color = lineColors[i % lineColors.size]
-            lines[i].drawMark(canvas, displayBoundary, chartBoundary, point, markPaint, textPaint = textPaint)
+            lines[i].drawMark(
+                canvas,
+                displayBoundary,
+                chartBoundary,
+                point,
+                markPaint,
+                textPaint = textPaint,
+                index = i
+            )
             markedPair.add(point)
         }
 

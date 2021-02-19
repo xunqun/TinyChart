@@ -65,8 +65,8 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         chartBoundary: Rect,
         point: Pair<Float, Float>,
         paint: Paint,
-        textPaint: TextPaint
-
+        textPaint: TextPaint,
+        index: Int = 0
     ) {
         val scaleX = Math.abs(chartBoundary.width() / displayBoundary.width())
 
@@ -78,10 +78,10 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
         canvas.drawOval(RectF(x - 10, y - 10, x + 10, y + 10), paint)
         canvas.drawLine(chartBoundary.left.toFloat(), y, chartBoundary.right.toFloat(), y, paint)
         val text = String.format("%.2f", point.second)
-        val width = textPaint.measureText(text) + 10
+        val width = (textPaint.measureText(text) + 30) * (index + 1)
         canvas.drawText(
             text,
-            if (x < chartBoundary.width() / 2) chartBoundary.right - width else chartBoundary.left.toFloat(),
+            if (x < chartBoundary.width() / 2) chartBoundary.right - width else chartBoundary.left.toFloat() + width,
             if (y - chartBoundary.height() / 2 < chartBoundary.top) y + 30 else y,
             textPaint
         )
