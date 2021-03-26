@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
@@ -29,21 +28,35 @@ class LabelProgressChart2D @JvmOverloads constructor(
             .inflate(R.layout.view_label_progress_chart_2d, this) as ConstraintLayout
 
     private val valueAdapter = InstantValueAdapter()
+
     init {
-        vProgressChart.obsMarkedPoint().observe(context as LifecycleOwner, Observer {
-            valueAdapter.setData(it)
-        })
+
 
 //        vInstantValueList.apply {
 //            adapter = valueAdapter
 //            layoutManager = LinearLayoutManager(context)
 //        }
     }
-    var drawType = Type.line
-    set(value){
-        field = value
-        vProgressChart.drawAsDot = value == Type.dot
+
+    val dataObs = Observer<ArrayList<Pair<Float, Float>>> {
+        valueAdapter.setData(it)
     }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        vProgressChart.obsMarkedPoint().observeForever(dataObs)
+    }
+
+    override fun onDetachedFromWindow() {
+        vProgressChart.obsMarkedPoint().removeObserver(dataObs)
+        super.onDetachedFromWindow()
+    }
+
+    var drawType = Type.line
+        set(value) {
+            field = value
+            vProgressChart.drawAsDot = value == Type.dot
+        }
 
     var xname: String = "TIME"
         set(value) {

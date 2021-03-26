@@ -260,6 +260,7 @@ open class ChartView2D @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         animator?.cancel()
         animator = null
+        show()
         super.onDetachedFromWindow()
     }
 }
