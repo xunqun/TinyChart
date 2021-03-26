@@ -165,14 +165,19 @@ open class ChartView2D @JvmOverloads constructor(
     }
 
     fun animate(duration: Long) {
-        percent = 0f
-        if (animator != null) animator!!.cancel()
-        animator = ValueAnimator.ofFloat(0f, 1f).setDuration(duration)
-        animator!!.addUpdateListener(ValueAnimator.AnimatorUpdateListener {
-            percent = it.animatedValue as Float
+        if (isAttachedToWindow) {
+            percent = 0f
+            if (animator != null) animator!!.cancel()
+            animator = ValueAnimator.ofFloat(0f, 1f).setDuration(duration)
+            animator!!.addUpdateListener(ValueAnimator.AnimatorUpdateListener {
+                percent = it.animatedValue as Float
+                invalidate()
+            })
+            animator!!.start()
+        } else {
+            percent = 1f
             invalidate()
-        })
-        animator!!.start()
+        }
     }
 
     /**
@@ -250,5 +255,11 @@ open class ChartView2D @JvmOverloads constructor(
                 framePaint
             )
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        animator?.cancel()
+        animator = null
+        super.onDetachedFromWindow()
     }
 }
