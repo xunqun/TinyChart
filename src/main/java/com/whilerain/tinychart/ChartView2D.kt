@@ -152,7 +152,7 @@ open class ChartView2D @JvmOverloads constructor(
                 dataBoundary.left,
                 dataBoundary.top,
                 dataBoundary.right,
-                dataBoundary.bottom
+                dataBoundary.bottom + (dataBoundary.height() * 0.1f)
             )
             this.lines = lines
             invalidate()
