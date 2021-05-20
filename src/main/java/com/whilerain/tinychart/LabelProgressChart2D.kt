@@ -22,21 +22,11 @@ class LabelProgressChart2D @JvmOverloads constructor(
         line, dot
     }
 
-
     private var view: ConstraintLayout =
         LayoutInflater.from(context)
             .inflate(R.layout.view_label_progress_chart_2d, this) as ConstraintLayout
 
     private val valueAdapter = InstantValueAdapter()
-
-    init {
-
-
-//        vInstantValueList.apply {
-//            adapter = valueAdapter
-//            layoutManager = LinearLayoutManager(context)
-//        }
-    }
 
     val dataObs = Observer<ArrayList<Pair<Float, Float>>> {
         valueAdapter.setData(it)
@@ -77,6 +67,7 @@ class LabelProgressChart2D @JvmOverloads constructor(
 
     fun setData(data: ArrayList<Line2D>) {
         chart().addData(data)
+        chart().add
         updateFrame()
         chart().animate(1000)
     }
