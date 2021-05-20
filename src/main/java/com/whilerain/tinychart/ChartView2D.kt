@@ -65,7 +65,7 @@ open class ChartView2D @JvmOverloads constructor(
     var chartBoundary: Rect = Rect(0, 0, 0, 0)
 
 
-    private var percent = 0f
+    protected var percent = 0f
     private var animator: ValueAnimator? = null
 
     /**

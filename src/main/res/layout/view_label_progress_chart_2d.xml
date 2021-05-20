@@ -81,7 +81,7 @@
             android:text="10" />
     </LinearLayout>
 
-    <com.whilerain.tinychart.ProgressedChart2D
+    <com.whilerain.tinychart.ProgressedOverlayChart2D
         android:id="@+id/vProgressChart"
         android:layout_width="0dp"
         android:layout_height="140dp"
