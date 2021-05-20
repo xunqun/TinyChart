@@ -67,7 +67,6 @@ class LabelProgressChart2D @JvmOverloads constructor(
 
     fun setData(data: ArrayList<Line2D>) {
         chart().addData(data)
-        chart().add
         updateFrame()
         chart().animate(1000)
     }
