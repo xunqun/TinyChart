@@ -72,7 +72,7 @@ open class OverlayChartView2D @JvmOverloads constructor(
             if(drawAsDot){
                 extraLines1[i].drawDot(
                     canvas,
-                    displayBoundary,
+                    extraDisplayBoundary1,
                     chartBoundary,
                     extraLines1[i].raws,
                     percent,
@@ -81,7 +81,7 @@ open class OverlayChartView2D @JvmOverloads constructor(
             }else {
                 extraLines1[i].drawPath(
                     canvas,
-                    displayBoundary,
+                    extraDisplayBoundary1,
                     chartBoundary,
                     extraLines1[i].raws,
                     percent,

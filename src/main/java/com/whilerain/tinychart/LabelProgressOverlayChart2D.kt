@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_instant_value.*
-import kotlinx.android.synthetic.main.view_label_progress_chart_2d.view.*
+import kotlinx.android.synthetic.main.view_label_progress_overlay_chart_2d.view.*
 
 class LabelProgressOverlayChart2D @JvmOverloads constructor(
     context: Context,
@@ -25,7 +25,7 @@ class LabelProgressOverlayChart2D @JvmOverloads constructor(
 
     private var view: ConstraintLayout =
         LayoutInflater.from(context)
-            .inflate(R.layout.view_label_progress_chart_2d, this) as ConstraintLayout
+            .inflate(R.layout.view_label_progress_overlay_chart_2d, this) as ConstraintLayout
 
     private val valueAdapter = InstantValueAdapter()
 
