@@ -1,10 +1,7 @@
 package com.whilerain.tinychart
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.CornerPathEffect
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import com.whilerain.tinychart.utils.UiUtil
 
@@ -17,6 +14,11 @@ open class OverlayChartView2D @JvmOverloads constructor(
      * Raw data
      */
     protected var extraLines1: ArrayList<Line2D> = ArrayList()
+
+    /**
+     * Default colors for extra lines
+     */
+    val extraLineColors: List<Int> = listOf(Color.RED, Color.BLUE, Color.GRAY)
 
     /**
      *  The exact data boundary
@@ -68,7 +70,7 @@ open class OverlayChartView2D @JvmOverloads constructor(
     private fun drawExtraLines1(canvas: Canvas) {
 
         for (i in extraLines1.indices) {
-            extraLinePaint1.color = lineColors[i % lineColors.size]
+            extraLinePaint1.color = extraLineColors[i % lineColors.size]
             if(drawAsDot){
                 extraLines1[i].drawDot(
                     canvas,

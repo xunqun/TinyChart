@@ -18,7 +18,7 @@ class LabelProgressOverlayChart2D @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    enum class Type{
+    enum class Type {
         line, dot
     }
 
@@ -29,33 +29,24 @@ class LabelProgressOverlayChart2D @JvmOverloads constructor(
 
     private val valueAdapter = InstantValueAdapter()
 
-    init {
-
-
-//        vInstantValueList.apply {
-//            adapter = valueAdapter
-//            layoutManager = LinearLayoutManager(context)
-//        }
-    }
-
     val dataObs = Observer<ArrayList<Pair<Float, Float>>> {
         valueAdapter.setData(it)
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        vProgressChart.obsMarkedPoint().observeForever(dataObs)
+        vProgressOverlayChart.obsMarkedPoint().observeForever(dataObs)
     }
 
     override fun onDetachedFromWindow() {
-        vProgressChart.obsMarkedPoint().removeObserver(dataObs)
+        vProgressOverlayChart.obsMarkedPoint().removeObserver(dataObs)
         super.onDetachedFromWindow()
     }
 
     var drawType = Type.line
         set(value) {
             field = value
-            vProgressChart.drawAsDot = value == Type.dot
+            vProgressOverlayChart.drawAsDot = value == Type.dot
         }
 
     var xname: String = "TIME"
@@ -70,54 +61,105 @@ class LabelProgressOverlayChart2D @JvmOverloads constructor(
             vYname.text = value
         }
 
+    var yname_r: String = ""
+        set(value) {
+            field = value
+            vYname_r.text = value
+        }
+
     var xformat = "%.0f"
     var yformat = "%.0f"
+    var yformat_r = "%.1f"
 
-    private fun chart() = view.findViewById<ProgressedOverlayChart2D>(R.id.vProgressChart)
 
     fun setData(data: ArrayList<Line2D>) {
-        chart().addData(data)
+        vProgressOverlayChart.addData(data)
         updateFrame()
-        chart().animate(1000)
+        vProgressOverlayChart.animate(1000)
     }
 
-    fun setExtraData(data: ArrayList<Line2D>){
-        chart().addExtraData1(data)
+    fun setExtraData(data: ArrayList<Line2D>) {
+        vProgressOverlayChart.addExtraData1(data)
+        updateExtraFrame()
+        vProgressOverlayChart.animate(1000)
+    }
+
+    private fun updateExtraFrame() {
+        val bound = vProgressOverlayChart.extraDisplayBoundary1
+
+        vY0_r.apply {
+            text = String.format(yformat_r, bound.top)
+//            setTextColor(vProgressOverlayChart.extraLineColors[0])
+        }
+
+        vY1_r.apply {
+            text = String.format(yformat_r, bound.top + bound.height() * 0.25)
+//            setTextColor(vProgressOverlayChart.extraLineColors[0])
+        }
+        vY2_r.apply {
+            text = String.format(yformat_r, bound.top + bound.height() * 0.5)
+//            setTextColor(vProgressOverlayChart.extraLineColors[0])
+        }
+        vY3_r.apply {
+            text = String.format(yformat_r, bound.top + bound.height() * 0.75)
+//            setTextColor(vProgressOverlayChart.extraLineColors[0])
+        }
+        vY4_r.apply {
+            text = String.format(yformat_r, bound.bottom)
+//            setTextColor(vProgressOverlayChart.extraLineColors[0])
+        }
+
+    }
+
+    fun setColor(colors: List<Int>) {
+        vProgressOverlayChart.lineColors = colors
         updateFrame()
-        chart().animate(1000)
+        updateExtraFrame()
     }
 
-    fun setColor(colors: List<Int>){
-        vProgressChart.lineColors = colors
+    fun animate(t: Long) {
+        vProgressOverlayChart.animate(t)
     }
 
-    fun animate(t: Long){
-        chart().animate(t)
-    }
-
-    fun show(){
-        chart().show()
+    fun show() {
+        vProgressOverlayChart.show()
     }
 
     fun updateFrame() {
-        val bound = chart().displayBoundary
+        val bound = vProgressOverlayChart.displayBoundary
         vX0.text = String.format(xformat, bound.left)
         vX1.text = String.format(xformat, bound.left + bound.width() * 0.25)
         vX2.text = String.format(xformat, bound.left + bound.width() * 0.5)
         vX3.text = String.format(xformat, bound.left + bound.width() * 0.75)
         vX4.text = String.format(xformat, bound.right)
 
-        vY0.text = String.format(yformat, bound.top)
-        vY1.text = String.format(yformat, bound.top + bound.height() * 0.25)
-        vY2.text = String.format(yformat, bound.top + bound.height() * 0.5)
-        vY3.text = String.format(yformat, bound.top + bound.height() * 0.75)
-        vY4.text = String.format(yformat, bound.bottom)
+        vY0.apply {
+            text = String.format(yformat, bound.top)
+//            setTextColor(vProgressOverlayChart.lineColors[0])
+        }
+        vY1.apply {
+            text = String.format(yformat, bound.top + bound.height() * 0.25)
+//            setTextColor(vProgressOverlayChart.lineColors[0])
+        }
+        vY2.apply {
+            text = String.format(yformat, bound.top + bound.height() * 0.5)
+//            setTextColor(vProgressOverlayChart.lineColors[0])
+        }
+        vY3.apply {
+            text = String.format(yformat, bound.top + bound.height() * 0.75)
+//            setTextColor(vProgressOverlayChart.lineColors[0])
+        }
+
+        vY4.apply {
+            text = String.format(yformat, bound.bottom)
+//            setTextColor(vProgressOverlayChart.lineColors[0])
+        }
     }
 
     inner class InstantValueAdapter : RecyclerView.Adapter<InstantVh>() {
         var list = arrayListOf<Pair<Float, Float>>()
 
-        fun setData(l: ArrayList<Pair<Float, Float>>){
+        fun setData(l: ArrayList<Pair<Float, Float>>) {
             list = l
             notifyDataSetChanged()
         }
@@ -140,7 +182,7 @@ class LabelProgressOverlayChart2D @JvmOverloads constructor(
         RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun onBind(index: Int, point: Pair<Float, Float>) {
             text.text = String.format("%.3f", point.second)
-            text.setTextColor(chart().lineColors[index % chart().lineColors.size])
+            text.setTextColor(vProgressOverlayChart.lineColors[index % vProgressOverlayChart.lineColors.size])
         }
     }
 }
