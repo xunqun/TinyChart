@@ -94,6 +94,7 @@ open class ProgressedOverlayChart2D @JvmOverloads constructor(
             drawLevelLines(it)
             drawProgressLine(it)
             drawMark(it)
+            drawExtraMark(it)
         }
 
     }
@@ -129,7 +130,7 @@ open class ProgressedOverlayChart2D @JvmOverloads constructor(
             val point = lines[i].findValueOfProgress(target)
             markPaint.color = lineColors[i % lineColors.size]
             textPaint.color = lineColors[i % lineColors.size]
-            lines[i].drawMark(
+            extraLines1[i].drawMark(
                 canvas,
                 displayBoundary,
                 chartBoundary,
@@ -164,6 +165,29 @@ open class ProgressedOverlayChart2D @JvmOverloads constructor(
             textPaint.color = Color.BLACK
             canvas.drawText(text, x + UiUtil.dpToPx(4), y - UiUtil.dpToPx(4).toFloat(), textPaint)
         }
+        _markedPoint.value = markedPair
+    }
+
+    private fun drawExtraMark(canvas: Canvas) {
+        val markedPair = arrayListOf<Pair<Float, Float>>()
+        for (i in extraLines1.indices) {
+            val target = extraDisplayBoundary1.left + extraDisplayBoundary1.width() * progress
+            val point = extraLines1[i].findValueOfProgress(target)
+            markPaint.color = extraLineColors[i % extraLineColors.size]
+            textPaint.color = extraLineColors[i % extraLineColors.size]
+            extraLines1[i].drawMark(
+                canvas,
+                extraDisplayBoundary1,
+                chartBoundary,
+                point,
+                markPaint,
+                textPaint = textPaint,
+                index = i
+            )
+            markedPair.add(point)
+        }
+
+
         _markedPoint.value = markedPair
     }
 
