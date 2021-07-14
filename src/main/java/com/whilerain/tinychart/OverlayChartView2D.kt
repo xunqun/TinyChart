@@ -18,7 +18,7 @@ open class OverlayChartView2D @JvmOverloads constructor(
     /**
      * Default colors for extra lines
      */
-    val extraLineColors: List<Int> = listOf(Color.RED, Color.BLUE, Color.GRAY)
+    val extraLineColors: List<Int> = listOf(Color.GREEN, Color.BLUE, Color.GRAY)
 
     /**
      *  The exact data boundary
