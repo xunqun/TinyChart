@@ -50,6 +50,13 @@ open class ProgressedChart2D @JvmOverloads constructor(
         pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
     }
 
+    private val zeroPaint = Paint().apply {
+        style = Paint.Style.STROKE
+        color = Color.WHITE
+        isAntiAlias = false
+        strokeWidth = UiUtil.dpToPx(1).toFloat()
+    }
+
     private val textPaint = TextPaint().apply {
         textSize = UiUtil.dpToPx(12).toFloat()
         color = Color.LTGRAY
@@ -109,8 +116,27 @@ open class ProgressedChart2D @JvmOverloads constructor(
                 levelPaint
             )
         }
-
-        (1..3).forEach{i ->
+        if (0f > dataBoundary.top && 0f < dataBoundary.bottom) {
+            val zeroY =
+                chartBoundary.top + chartBoundary.height() * ((dataBoundary.bottom - 0) / dataBoundary.height())
+            c.drawLine(
+                chartBoundary.left.toFloat(),
+                zeroY,
+                chartBoundary.right.toFloat(),
+                zeroY,
+                zeroPaint
+            )
+        } else {
+            val zeroY = chartBoundary.top + chartBoundary.height().toFloat()
+            c.drawLine(
+                chartBoundary.left.toFloat(),
+                zeroY,
+                chartBoundary.right.toFloat(),
+                zeroY,
+                zeroPaint
+            )
+        }
+        (1..3).forEach { i ->
             val x = chartBoundary.left + chartBoundary.width() * 0.25f * i
             c.drawLine(
                 x,

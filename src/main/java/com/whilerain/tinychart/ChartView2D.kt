@@ -213,7 +213,7 @@ open class ChartView2D @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         canvas?.let {
-            drawFrame(canvas)
+//            drawFrame(canvas)
             drawLines(canvas)
         }
         super.onDraw(canvas)
