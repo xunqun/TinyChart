@@ -44,7 +44,7 @@ open class ChartView2D @JvmOverloads constructor(
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         strokeWidth = UiUtil.dpToPx(1).toFloat()
         style = Paint.Style.STROKE
-        pathEffect = CornerPathEffect(UiUtil.dpToPx(16).toFloat())
+        pathEffect = CornerPathEffect(UiUtil.dpToPx(5).toFloat())
     }
 
     /**
@@ -148,18 +148,21 @@ open class ChartView2D @JvmOverloads constructor(
                     if (it.second > dataBoundary.bottom) dataBoundary.bottom = it.second
                 }
             }
+            val bottomBoundSpace =
+                (if (dataBoundary.height() > 0) dataBoundary.height() * 0.1f else dataBoundary.height() + 1)
+            val topBoundSpace = if (dataBoundary.top == 0f) 0f else bottomBoundSpace
             displayBoundary = RectF(
                 dataBoundary.left,
-                dataBoundary.top,
+                dataBoundary.top - topBoundSpace,
                 dataBoundary.right,
-                dataBoundary.bottom + (dataBoundary.height() * 0.1f)
+                dataBoundary.bottom + bottomBoundSpace
             )
             this.lines = lines
             invalidate()
         }
     }
 
-    fun show(){
+    fun show() {
         percent = 1f
         invalidate()
     }
@@ -223,7 +226,7 @@ open class ChartView2D @JvmOverloads constructor(
 
         for (i in lines.indices) {
             linePaint.color = lineColors[i % lineColors.size]
-            if(drawAsDot){
+            if (drawAsDot) {
                 lines[i].drawDot(
                     canvas,
                     displayBoundary,
@@ -232,7 +235,7 @@ open class ChartView2D @JvmOverloads constructor(
                     percent,
                     linePaint
                 )
-            }else {
+            } else {
                 lines[i].drawPath(
                     canvas,
                     displayBoundary,
