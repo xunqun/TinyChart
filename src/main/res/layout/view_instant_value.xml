@@ -2,5 +2,5 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="@dimen/chart_font_small"
+    android:textSize="@dimen/chart_number_small"
     android:id="@+id/text"/>

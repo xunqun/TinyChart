@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="-90"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/chart_number_small"
         android:text="SPEED"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -75,7 +75,7 @@
             android:id="@+id/vY0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10" />
     </LinearLayout>
@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="-90"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/chart_number_small"
         android:text="SPEED"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:textSize="@dimen/chart_font_small"
+        android:textSize="@dimen/chart_number_small"
         app:layout_constraintBottom_toBottomOf="@id/vProgressOverlayChart"
         app:layout_constraintEnd_toStartOf="@id/vYname_r"
         app:layout_constraintTop_toTopOf="parent">
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -140,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -150,7 +150,7 @@
             android:id="@+id/vY0_r"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10" />
     </LinearLayout>
@@ -181,7 +181,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -192,7 +192,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -203,7 +203,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -214,7 +214,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -224,7 +224,7 @@
             android:id="@+id/vX4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/chart_font_small"
+            android:textSize="@dimen/chart_number_small"
             android:textColor="#fff"
             android:text="10" />
 
@@ -236,7 +236,7 @@
         android:layout_height="wrap_content"
         android:text="TIME"
         android:textAllCaps="true"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/chart_number_small"
         android:layout_marginLeft="8dp"
         app:layout_constraintStart_toStartOf="@id/xlabels"
         app:layout_constraintEnd_toEndOf="@id/xlabels"

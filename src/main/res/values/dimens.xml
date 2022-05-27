@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="font_small">12sp</dimen>
-    <dimen name="chart_font_small">8sp</dimen>
+    <dimen name="font_small">10sp</dimen>
+    <dimen name="chart_number_small">9sp</dimen>
 </resources>
