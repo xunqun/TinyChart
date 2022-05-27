@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:textSize="@dimen/font_small"
         app:layout_constraintBottom_toBottomOf="@id/vProgressOverlayChart"
         app:layout_constraintStart_toEndOf="@id/vYname"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -44,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -55,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -66,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -76,7 +75,7 @@
             android:id="@+id/vY0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10" />
     </LinearLayout>
@@ -98,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/chart_font_small"
         app:layout_constraintBottom_toBottomOf="@id/vProgressOverlayChart"
         app:layout_constraintEnd_toStartOf="@id/vYname_r"
         app:layout_constraintTop_toTopOf="parent">
@@ -108,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -119,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -130,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -141,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -151,7 +150,7 @@
             android:id="@+id/vY0_r"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10" />
     </LinearLayout>
@@ -182,7 +181,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -193,7 +192,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -204,7 +203,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -215,7 +214,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10"
 
@@ -225,7 +224,7 @@
             android:id="@+id/vX4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_small"
+            android:textSize="@dimen/chart_font_small"
             android:textColor="#fff"
             android:text="10" />
 
