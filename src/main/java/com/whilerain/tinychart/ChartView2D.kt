@@ -134,7 +134,7 @@ open class ChartView2D @JvmOverloads constructor(
     /**
      * Provides data list contains (x, y) as Pair
      */
-    fun addData(lines: ArrayList<Line2D>) {
+    fun addData(lines: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
         if (lines.isNotEmpty() && lines[0].raws.isNotEmpty()) {
             dataBoundary.left = lines[0].raws[0].first
             dataBoundary.right = lines[0].raws[0].first
@@ -151,11 +151,13 @@ open class ChartView2D @JvmOverloads constructor(
             val bottomBoundSpace =
                 (if (dataBoundary.height() > 0) dataBoundary.height() * 0.1f else dataBoundary.height() + 1)
             val topBoundSpace = if (dataBoundary.top == 0f) 0f else bottomBoundSpace
+            val displayTop = top ?: dataBoundary.top - topBoundSpace
+            val displayBottom = bottom ?: dataBoundary.bottom + bottomBoundSpace
             displayBoundary = RectF(
                 dataBoundary.left,
-                dataBoundary.top - topBoundSpace,
+                displayTop,
                 dataBoundary.right,
-                dataBoundary.bottom + bottomBoundSpace
+                displayBottom
             )
             this.lines = lines
             invalidate()

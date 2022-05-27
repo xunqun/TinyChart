@@ -65,17 +65,17 @@ class LabelProgressChart2D @JvmOverloads constructor(
 
     private fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
 
-    fun setData(data: ArrayList<Line2D>) {
-        chart().addData(data)
+    fun setData(data: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
+        chart().addData(data, top, bottom)
         updateFrame()
         chart().animate(1000)
     }
 
-    fun setColor(colors: List<Int>){
+    fun setColor(colors: List<Int>) {
         vProgressChart.lineColors = colors
     }
 
-    fun animate(t: Long){
+    fun animate(t: Long) {
         chart().animate(t)
     }
 

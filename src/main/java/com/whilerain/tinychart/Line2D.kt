@@ -103,4 +103,24 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
             return Pair(0f, 0f)
         }
     }
+
+    fun getDataBound(): RectF? {
+        val result = RectF()
+        if (raws.isNotEmpty()) {
+            result.left = raws[0].first
+            result.right = raws[0].first
+            result.top = raws[0].second
+            result.bottom = raws[0].second
+        } else {
+            return null
+        }
+
+        for (raw in raws) {
+            if (raw.first < result.left) result.left = raw.first
+            if (raw.first > result.right) result.right = raw.first
+            if (raw.second < result.bottom) result.bottom = raw.second
+            if (raw.second > result.top) result.top = raw.second
+        }
+        return result
+    }
 }
