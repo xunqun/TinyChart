@@ -72,14 +72,14 @@ class LabelProgressOverlayChart2D @JvmOverloads constructor(
     var yformat_r = "%.1f"
 
 
-    fun setData(data: ArrayList<Line2D>) {
-        vProgressOverlayChart.addData(data)
+    fun setData(data: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
+        vProgressOverlayChart.addData(data, top, bottom)
         updateFrame()
         vProgressOverlayChart.animate(1000)
     }
 
-    fun setExtraData(data: ArrayList<Line2D>) {
-        vProgressOverlayChart.addExtraData1(data)
+    fun setExtraData(data: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
+        vProgressOverlayChart.addExtraData1(data, top, bottom)
         updateExtraFrame()
         vProgressOverlayChart.animate(1000)
     }

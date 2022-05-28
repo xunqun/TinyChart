@@ -42,7 +42,7 @@ open class OverlayChartView2D @JvmOverloads constructor(
     /**
      * Provides data list contains (x, y) as Pair
      */
-    fun addExtraData1(lines: ArrayList<Line2D>) {
+    fun addExtraData1(lines: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
         if (lines.isNotEmpty() && lines[0].raws.isNotEmpty()) {
             extraDataBoundary1.left = lines[0].raws[0].first
             extraDataBoundary1.right = lines[0].raws[0].first
@@ -56,11 +56,16 @@ open class OverlayChartView2D @JvmOverloads constructor(
                     if (it.second > extraDataBoundary1.bottom) extraDataBoundary1.bottom = it.second
                 }
             }
+            val bottomBoundSpace =
+                (if (dataBoundary.height() > 0) dataBoundary.height() * 0.1f else dataBoundary.height() + 1)
+            val topBoundSpace = if (dataBoundary.top == 0f) 0f else bottomBoundSpace
+            val displayTop = top ?: dataBoundary.top - topBoundSpace
+            val displayBottom = bottom ?: dataBoundary.bottom + bottomBoundSpace
             extraDisplayBoundary1 = RectF(
                 dataBoundary.left,
-                extraDataBoundary1.top,
+                displayTop,
                 dataBoundary.right,
-                extraDataBoundary1.bottom + (extraDataBoundary1.height() * 0.1f)
+                displayBottom
             )
             this.extraLines1 = lines
             invalidate()
