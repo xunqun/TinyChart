@@ -6,14 +6,17 @@
     android:layout_height="wrap_content">
 
 
-    <TextView
+    <com.koso.powertry.widget.VerticalTextView
         android:id="@+id/vYname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:rotation="-90"
-        android:textSize="@dimen/chart_number_small"
+        android:background="@drawable/shape_round_clip_light"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="SPEED"
         android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small"
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
