@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:clipChildren="false"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clipChildren="false">
 
 
     <com.koso.powertry.widget.VerticalTextView
@@ -35,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -46,9 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -57,9 +57,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -68,9 +68,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -78,9 +78,9 @@
             android:id="@+id/vY0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/chart_number_small"
+            android:text="10"
             android:textColor="#fff"
-            android:text="10" />
+            android:textSize="@dimen/chart_number_small" />
     </LinearLayout>
 
     <TextView
@@ -88,9 +88,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="-90"
-        android:textSize="@dimen/chart_number_small"
         android:text="SPEED"
         android:textAllCaps="true"
+        android:textSize="@dimen/chart_number_small"
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -110,9 +110,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -121,9 +121,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -132,9 +132,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -143,9 +143,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -153,9 +153,9 @@
             android:id="@+id/vY0_r"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/chart_number_small"
+            android:text="10"
             android:textColor="#fff"
-            android:text="10" />
+            android:textSize="@dimen/chart_number_small" />
     </LinearLayout>
 
     <com.whilerain.tinychart.ProgressedOverlayChart2D
@@ -184,9 +184,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -195,9 +195,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -206,9 +206,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -217,9 +217,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/chart_number_small"
-            android:textColor="#fff"
             android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
 
             />
 
@@ -227,9 +227,9 @@
             android:id="@+id/vX4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/chart_number_small"
+            android:text="10"
             android:textColor="#fff"
-            android:text="10" />
+            android:textSize="@dimen/chart_number_small" />
 
     </LinearLayout>
 
@@ -237,12 +237,15 @@
         android:id="@+id/vXname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/shape_round_clip_light"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="TIME"
         android:textAllCaps="true"
         android:textSize="@dimen/chart_number_small"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintStart_toStartOf="@id/xlabels"
         app:layout_constraintEnd_toEndOf="@id/xlabels"
+        app:layout_constraintStart_toStartOf="@id/xlabels"
         app:layout_constraintTop_toBottomOf="@id/xlabels" />
 
 
