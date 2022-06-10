@@ -16,7 +16,7 @@
         android:text="SPEED"
         android:textAllCaps="true"
         android:textColor="#000"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/chart_number_small"
         app:layout_constraintBottom_toBottomOf="@id/ylabels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -241,6 +241,7 @@
         android:background="@drawable/shape_round_clip_light"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:textColor="#000"
         android:text="TIME"
         android:textAllCaps="true"
         android:textSize="@dimen/chart_number_small"
