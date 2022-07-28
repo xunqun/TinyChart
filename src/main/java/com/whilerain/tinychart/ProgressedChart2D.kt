@@ -19,9 +19,13 @@ open class ProgressedChart2D @JvmOverloads constructor(
      * The current progress to show on chart
      * between 0 to 1
      */
+    private val _progressLive = MutableLiveData<Float>()
+    val progressLive: LiveData<Float> = _progressLive
+
     var progress = 0f
         set(value) {
             field = value
+            _progressLive.postValue(value)
             invalidate()
         }
 

@@ -63,7 +63,7 @@ class LabelProgressChart2D @JvmOverloads constructor(
     var xformat = "%.0f"
     var yformat = "%.0f"
 
-    private fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
+    fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
 
     fun setData(data: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
         chart().addData(data, top, bottom)
