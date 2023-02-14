@@ -44,17 +44,17 @@ open class ChartView2D @JvmOverloads constructor(
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         strokeWidth = UiUtil.dpToPx(1).toFloat()
         style = Paint.Style.STROKE
-//        pathEffect = CornerPathEffect(UiUtil.dpToPx(16).toFloat())
+        pathEffect = CornerPathEffect(UiUtil.dpToPx(5).toFloat())
     }
 
     /**
      * Raw data
      */
     protected var lines: ArrayList<Line2D> = ArrayList()
-    var lineColors: List<Int> = listOf(Color.YELLOW, Color.CYAN)
+    var lineColors: List<Int> = listOf(Color.YELLOW, Color.CYAN, Color.BLUE)
 
     // The exact data boundary
-    private var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
+    var dataBoundary: RectF = RectF(0f, 0f, 0f, 0f)
 
     // The chart display boundary
     var displayBoundary: RectF = RectF(0f, 0f, 10f, 10f)
@@ -65,7 +65,7 @@ open class ChartView2D @JvmOverloads constructor(
     var chartBoundary: Rect = Rect(0, 0, 0, 0)
 
 
-    private var percent = 0f
+    protected var percent = 0f
     private var animator: ValueAnimator? = null
 
     /**
@@ -134,8 +134,8 @@ open class ChartView2D @JvmOverloads constructor(
     /**
      * Provides data list contains (x, y) as Pair
      */
-    fun addData(lines: ArrayList<Line2D>) {
-        if (lines.isNotEmpty()) {
+    fun addData(lines: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
+        if (lines.isNotEmpty() && lines[0].raws.isNotEmpty()) {
             dataBoundary.left = lines[0].raws[0].first
             dataBoundary.right = lines[0].raws[0].first
             dataBoundary.top = lines[0].raws[0].second
@@ -148,31 +148,41 @@ open class ChartView2D @JvmOverloads constructor(
                     if (it.second > dataBoundary.bottom) dataBoundary.bottom = it.second
                 }
             }
+            val bottomBoundSpace =
+                (if (dataBoundary.height() > 0) dataBoundary.height() * 0.1f else dataBoundary.height() + 1)
+            val topBoundSpace = if (dataBoundary.top == 0f) 0f else bottomBoundSpace
+            val displayTop = top ?: dataBoundary.top - topBoundSpace
+            val displayBottom = bottom ?: dataBoundary.bottom + bottomBoundSpace
             displayBoundary = RectF(
                 dataBoundary.left,
-                dataBoundary.top,
+                displayTop,
                 dataBoundary.right,
-                dataBoundary.bottom
+                displayBottom
             )
             this.lines = lines
             invalidate()
         }
     }
 
-    fun show(){
+    fun show() {
         percent = 1f
         invalidate()
     }
 
     fun animate(duration: Long) {
-        percent = 0f
-        if (animator != null) animator!!.cancel()
-        animator = ValueAnimator.ofFloat(0f, 1f).setDuration(duration)
-        animator!!.addUpdateListener(ValueAnimator.AnimatorUpdateListener {
-            percent = it.animatedValue as Float
+        if (isAttachedToWindow) {
+            percent = 0f
+            if (animator != null) animator!!.cancel()
+            animator = ValueAnimator.ofFloat(0f, 1f).setDuration(duration)
+            animator!!.addUpdateListener(ValueAnimator.AnimatorUpdateListener {
+                percent = it.animatedValue as Float
+                invalidate()
+            })
+            animator!!.start()
+        } else {
+            percent = 1f
             invalidate()
-        })
-        animator!!.start()
+        }
     }
 
     /**
@@ -208,7 +218,7 @@ open class ChartView2D @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         canvas?.let {
-            drawFrame(canvas)
+//            drawFrame(canvas)
             drawLines(canvas)
         }
         super.onDraw(canvas)
@@ -218,7 +228,7 @@ open class ChartView2D @JvmOverloads constructor(
 
         for (i in lines.indices) {
             linePaint.color = lineColors[i % lineColors.size]
-            if(drawAsDot){
+            if (drawAsDot) {
                 lines[i].drawDot(
                     canvas,
                     displayBoundary,
@@ -227,7 +237,7 @@ open class ChartView2D @JvmOverloads constructor(
                     percent,
                     linePaint
                 )
-            }else {
+            } else {
                 lines[i].drawPath(
                     canvas,
                     displayBoundary,
@@ -250,5 +260,12 @@ open class ChartView2D @JvmOverloads constructor(
                 framePaint
             )
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        animator?.cancel()
+        animator = null
+        show()
+        super.onDetachedFromWindow()
     }
 }

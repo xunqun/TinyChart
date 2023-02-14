@@ -9,23 +9,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.whilerain.tinychart.utils.UiUtil
 
-open class ProgressedChart2D @JvmOverloads constructor(
+open class ProgressedOverlayChart2D @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ChartView2D(context, attrs, defStyleAttr) {
+) : OverlayChartView2D(context, attrs, defStyleAttr) {
 
     /**
      * The current progress to show on chart
      * between 0 to 1
      */
-    private val _progressLive = MutableLiveData<Float>()
-    val progressLive: LiveData<Float> = _progressLive
-
     var progress = 0f
         set(value) {
             field = value
-            _progressLive.postValue(value)
             invalidate()
         }
 
@@ -52,13 +48,6 @@ open class ProgressedChart2D @JvmOverloads constructor(
         isAntiAlias = false
         strokeWidth = 1f
         pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
-    }
-
-    private val zeroPaint = Paint().apply {
-        style = Paint.Style.STROKE
-        color = Color.WHITE
-        isAntiAlias = false
-        strokeWidth = UiUtil.dpToPx(1).toFloat()
     }
 
     private val textPaint = TextPaint().apply {
@@ -105,6 +94,7 @@ open class ProgressedChart2D @JvmOverloads constructor(
             drawLevelLines(it)
             drawProgressLine(it)
             drawMark(it)
+            drawExtraMark(it)
         }
 
     }
@@ -120,27 +110,8 @@ open class ProgressedChart2D @JvmOverloads constructor(
                 levelPaint
             )
         }
-        if (0f > dataBoundary.top && 0f < dataBoundary.bottom) {
-            val zeroY =
-                chartBoundary.top + chartBoundary.height() * ((dataBoundary.bottom - 0) / dataBoundary.height())
-            c.drawLine(
-                chartBoundary.left.toFloat(),
-                zeroY,
-                chartBoundary.right.toFloat(),
-                zeroY,
-                zeroPaint
-            )
-        } else {
-            val zeroY = chartBoundary.top + chartBoundary.height().toFloat()
-            c.drawLine(
-                chartBoundary.left.toFloat(),
-                zeroY,
-                chartBoundary.right.toFloat(),
-                zeroY,
-                zeroPaint
-            )
-        }
-        (1..3).forEach { i ->
+
+        (1..3).forEach{i ->
             val x = chartBoundary.left + chartBoundary.width() * 0.25f * i
             c.drawLine(
                 x,
@@ -159,7 +130,7 @@ open class ProgressedChart2D @JvmOverloads constructor(
             val point = lines[i].findValueOfProgress(target)
             markPaint.color = lineColors[i % lineColors.size]
             textPaint.color = lineColors[i % lineColors.size]
-            lines[i].drawMark(
+            extraLines1[i].drawMark(
                 canvas,
                 displayBoundary,
                 chartBoundary,
@@ -194,6 +165,29 @@ open class ProgressedChart2D @JvmOverloads constructor(
             textPaint.color = Color.BLACK
             canvas.drawText(text, x + UiUtil.dpToPx(4), y - UiUtil.dpToPx(4).toFloat(), textPaint)
         }
+        _markedPoint.value = markedPair
+    }
+
+    private fun drawExtraMark(canvas: Canvas) {
+        val markedPair = arrayListOf<Pair<Float, Float>>()
+        for (i in extraLines1.indices) {
+            val target = extraDisplayBoundary1.left + extraDisplayBoundary1.width() * progress
+            val point = extraLines1[i].findValueOfProgress(target)
+            markPaint.color = extraLineColors[i % extraLineColors.size]
+            textPaint.color = extraLineColors[i % extraLineColors.size]
+            extraLines1[i].drawMark(
+                canvas,
+                extraDisplayBoundary1,
+                chartBoundary,
+                point,
+                markPaint,
+                textPaint = textPaint,
+                index = i
+            )
+            markedPair.add(point)
+        }
+
+
         _markedPoint.value = markedPair
     }
 

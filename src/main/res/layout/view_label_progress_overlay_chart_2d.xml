@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:clipChildren="false">
 
+
     <com.koso.powertry.widget.VerticalTextView
         android:id="@+id/vYname"
         android:layout_width="wrap_content"
@@ -24,10 +25,8 @@
         android:id="@+id/ylabels"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="4dp"
         android:orientation="vertical"
-        android:textSize="@dimen/font_small"
-        app:layout_constraintBottom_toBottomOf="@id/vProgressChart"
+        app:layout_constraintBottom_toBottomOf="@id/vProgressOverlayChart"
         app:layout_constraintStart_toEndOf="@id/vYname"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -72,6 +71,7 @@
             android:text="10"
             android:textColor="#fff"
             android:textSize="@dimen/chart_number_small"
+
             />
 
         <TextView
@@ -83,25 +83,101 @@
             android:textSize="@dimen/chart_number_small" />
     </LinearLayout>
 
-    <com.whilerain.tinychart.ProgressedChart2D
-        android:id="@+id/vProgressChart"
+    <TextView
+        android:id="@+id/vYname_r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="-90"
+        android:text="SPEED"
+        android:textAllCaps="true"
+        android:textSize="@dimen/chart_number_small"
+        app:layout_constraintBottom_toBottomOf="@id/ylabels"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ylabels_r"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:textSize="@dimen/chart_number_small"
+        app:layout_constraintBottom_toBottomOf="@id/vProgressOverlayChart"
+        app:layout_constraintEnd_toStartOf="@id/vYname_r"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/vY4_r"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
+
+            />
+
+        <TextView
+            android:id="@+id/vY3_r"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
+
+            />
+
+        <TextView
+            android:id="@+id/vY2_r"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
+
+            />
+
+        <TextView
+            android:id="@+id/vY1_r"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small"
+
+            />
+
+        <TextView
+            android:id="@+id/vY0_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="#fff"
+            android:textSize="@dimen/chart_number_small" />
+    </LinearLayout>
+
+    <com.whilerain.tinychart.ProgressedOverlayChart2D
+        android:id="@+id/vProgressOverlayChart"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/img_chart_bg"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ylabels_r"
         app:layout_constraintStart_toEndOf="@id/ylabels"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/xlabels"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/vProgressChart"
-        app:layout_constraintStart_toStartOf="@id/vProgressChart"
-        app:layout_constraintTop_toBottomOf="@id/vProgressChart">
+        app:layout_constraintEnd_toEndOf="@id/vProgressOverlayChart"
+        app:layout_constraintStart_toStartOf="@id/vProgressOverlayChart"
+        app:layout_constraintTop_toBottomOf="@id/vProgressOverlayChart">
 
         <TextView
             android:id="@+id/vX0"

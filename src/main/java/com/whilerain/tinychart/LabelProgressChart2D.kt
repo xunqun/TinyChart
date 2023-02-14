@@ -1,15 +1,12 @@
 package com.whilerain.tinychart
 
 import android.content.Context
-import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_instant_value.*
@@ -25,27 +22,31 @@ class LabelProgressChart2D @JvmOverloads constructor(
         line, dot
     }
 
-
     private var view: ConstraintLayout =
         LayoutInflater.from(context)
             .inflate(R.layout.view_label_progress_chart_2d, this) as ConstraintLayout
 
-    private val  valueAdapter = InstantValueAdapter()
-    init {
-        vProgressChart.obsMarkedPoint().observe(context as LifecycleOwner, Observer {
-            valueAdapter.setData(it)
-        })
+    private val valueAdapter = InstantValueAdapter()
 
-        vInstantValueList.apply {
-            adapter = valueAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
+    val dataObs = Observer<ArrayList<Pair<Float, Float>>> {
+        valueAdapter.setData(it)
     }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        vProgressChart.obsMarkedPoint().observeForever(dataObs)
+    }
+
+    override fun onDetachedFromWindow() {
+        vProgressChart.obsMarkedPoint().removeObserver(dataObs)
+        super.onDetachedFromWindow()
+    }
+
     var drawType = Type.line
-    set(value){
-        field = value
-        vProgressChart.drawAsDot = value == Type.dot
-    }
+        set(value) {
+            field = value
+            vProgressChart.drawAsDot = value == Type.dot
+        }
 
     var xname: String = "TIME"
         set(value) {
@@ -62,23 +63,19 @@ class LabelProgressChart2D @JvmOverloads constructor(
     var xformat = "%.0f"
     var yformat = "%.0f"
 
-    override fun draw(canvas: Canvas?) {
-        super.draw(canvas)
-    }
+    fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
 
-    private fun chart() = view.findViewById<ProgressedChart2D>(R.id.vProgressChart)
-
-    fun setData(data: ArrayList<Line2D>) {
-        chart().addData(data)
+    fun setData(data: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
+        chart().addData(data, top, bottom)
         updateFrame()
         chart().animate(1000)
     }
 
-    fun setColor(colors: List<Int>){
+    fun setColor(colors: List<Int>) {
         vProgressChart.lineColors = colors
     }
 
-    fun animate(t: Long){
+    fun animate(t: Long) {
         chart().animate(t)
     }
 
