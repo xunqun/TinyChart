@@ -27,7 +27,7 @@
         android:layout_marginStart="4dp"
         android:orientation="vertical"
         android:textSize="@dimen/font_small"
-        app:layout_constraintBottom_toBottomOf="@id/vProgressChart"
+        app:layout_constraintBottom_toBottomOf="@id/vFChart"
         app:layout_constraintStart_toEndOf="@id/vYname"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -71,8 +71,7 @@
             android:layout_weight="1"
             android:text="10"
             android:textColor="#fff"
-            android:textSize="@dimen/chart_number_small"
-            />
+            android:textSize="@dimen/chart_number_small" />
 
         <TextView
             android:id="@+id/vY0"
@@ -83,8 +82,8 @@
             android:textSize="@dimen/chart_number_small" />
     </LinearLayout>
 
-    <com.whilerain.tinychart.ProgressedChart2D
-        android:id="@+id/vProgressChart"
+    <com.whilerain.tinychart.FixedWidthChart
+        android:id="@+id/vFChart"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="8dp"
@@ -99,9 +98,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/vProgressChart"
-        app:layout_constraintStart_toStartOf="@id/vProgressChart"
-        app:layout_constraintTop_toBottomOf="@id/vProgressChart">
+        app:layout_constraintEnd_toEndOf="@id/vFChart"
+        app:layout_constraintStart_toStartOf="@id/vFChart"
+        app:layout_constraintTop_toBottomOf="@id/vFChart">
 
         <TextView
             android:id="@+id/vX0"
