@@ -6,6 +6,7 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.whilerain.tinychart.utils.UiUtil
+import java.lang.Float.max
 
 open class FixedWidthChart @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -151,7 +152,7 @@ open class FixedWidthChart @JvmOverloads constructor(
                 zeroPaint
             )
         }
-        for (i in (displayBoundary.left + 1).toInt()..(displayBoundary.right).toInt()) {
+        for (i in max(displayBoundary.left + 1, 0f).toInt()..(displayBoundary.right).toInt()) {
 
             if (i % 5 == 0) {
                 val x =
