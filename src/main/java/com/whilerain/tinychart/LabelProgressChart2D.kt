@@ -68,7 +68,7 @@ class LabelProgressChart2D @JvmOverloads constructor(
     fun setData(data: ArrayList<Line2D>, top: Float? = null, bottom: Float? = null) {
         chart().addData(data, top, bottom)
         updateFrame()
-//        chart().animate(1000)
+        chart().animate(1000)
     }
 
     fun setColor(colors: List<Int>) {
