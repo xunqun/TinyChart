@@ -66,7 +66,7 @@ open class FixedWidthChart @JvmOverloads constructor(
     }
 
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        strokeWidth = UiUtil.dpToPx(1).toFloat()
+        strokeWidth = UiUtil.dpToPx(2).toFloat()
         style = Paint.Style.STROKE
         pathEffect = CornerPathEffect(UiUtil.dpToPx(5).toFloat())
     }
