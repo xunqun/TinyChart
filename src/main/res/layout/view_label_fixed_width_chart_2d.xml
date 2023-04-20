@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:clipChildren="false">
 
     <com.koso.powertry.widget.VerticalTextView
@@ -85,13 +85,14 @@
     <com.whilerain.tinychart.FixedWidthChart
         android:id="@+id/vFChart"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/img_chart_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ylabels"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/xlabels" />
 
     <LinearLayout
         android:id="@+id/xlabels"
@@ -100,7 +101,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/vFChart"
         app:layout_constraintStart_toStartOf="@id/vFChart"
-        app:layout_constraintTop_toBottomOf="@id/vFChart">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/vX0"
