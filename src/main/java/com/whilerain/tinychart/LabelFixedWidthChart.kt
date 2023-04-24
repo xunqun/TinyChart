@@ -20,7 +20,7 @@ class LabelFixedWidthChart @JvmOverloads constructor(
     fun setData(data: Line2D, top: Float? = null, bottom: Float? = null) {
         vFChart.setData(data, top, bottom)
         updateFrame()
-//        chart().animate(1000)
+
     }
 
     fun setColor(colors: List<Int>) {
@@ -29,11 +29,7 @@ class LabelFixedWidthChart @JvmOverloads constructor(
 
     fun updateFrame() {
         val bound = chart().displayBoundary
-//        vX0.text = String.format(xformat, bound.left)
-//        vX1.text = String.format(xformat, bound.left + bound.width() * 0.25)
-//        vX2.text = String.format(xformat, bound.left + bound.width() * 0.5)
-//        vX3.text = String.format(xformat, bound.left + bound.width() * 0.75)
-//        vX4.text = String.format(xformat, bound.right)
+
 
         vY0.text = String.format(yformat, bound.top)
         vY1.text = String.format(yformat, bound.top + bound.height() * 0.25)

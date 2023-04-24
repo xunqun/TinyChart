@@ -47,11 +47,13 @@ class Line2D(val raws: List<Pair<Float, Float>>) {
             Pair(x, chartBoundary.height() - y)
 
         }.forEach {
-            if (path == null) {
-                path = Path()
-                path!!.moveTo(it.first, it.second)
-            } else {
-                path!!.lineTo(it.first, it.second)
+            if (it.first >= chartBoundary.left) {
+                if (path == null) {
+                    path = Path()
+                    path!!.moveTo(it.first, it.second)
+                } else {
+                    path!!.lineTo(it.first, it.second)
+                }
             }
         }
 

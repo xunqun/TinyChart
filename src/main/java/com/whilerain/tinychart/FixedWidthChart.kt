@@ -7,9 +7,15 @@ import android.util.AttributeSet
 import android.view.View
 import com.whilerain.tinychart.utils.UiUtil
 
+import java.lang.Float.max
+
 open class FixedWidthChart @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+
+
+    val dataWith = 10
+
     /**
      * The color of the chart frame
      */
@@ -62,7 +68,8 @@ open class FixedWidthChart @JvmOverloads constructor(
     }
 
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        strokeWidth = UiUtil.dpToPx(1).toFloat()
+        strokeWidth = UiUtil.dpToPx(2).toFloat()
+
         style = Paint.Style.STROKE
         pathEffect = CornerPathEffect(UiUtil.dpToPx(5).toFloat())
     }
@@ -101,7 +108,8 @@ open class FixedWidthChart @JvmOverloads constructor(
         val displayTop = top ?: dataBoundary.top - topBoundSpace
         val displayBottom = bottom ?: dataBoundary.bottom + bottomBoundSpace
         displayBoundary = RectF(
-            dataBoundary.right - 10,
+
+            dataBoundary.right - dataWith,
             displayTop,
             dataBoundary.right,
             displayBottom
@@ -148,18 +156,21 @@ open class FixedWidthChart @JvmOverloads constructor(
                 zeroPaint
             )
         }
-        for (i in (displayBoundary.left + 1).toInt()..(displayBoundary.right - 1).toInt()) {
+
+        for (i in max(displayBoundary.left + 1, 0f).toInt()..(displayBoundary.right).toInt()) {
+
             if (i % 5 == 0) {
                 val x =
                     viewBoundary.left + viewBoundary.width() * ((i - displayBoundary.left) / displayBoundary.width())
+                val y = viewBoundary.bottom - 20f
                 c.drawLine(
                     x,
                     viewBoundary.top.toFloat(),
                     x,
-                    viewBoundary.bottom + 20f,
+                    y,
                     levelPaint
                 )
-                c.drawText(i.toString(), x, viewBoundary.bottom - 20f, textPaint)
+                c.drawText(i.toString(), x, y, textPaint)
             }
         }
     }
