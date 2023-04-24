@@ -91,6 +91,10 @@ open class FixedWidthChart @JvmOverloads constructor(
     fun setData(line: Line2D, top: Float? = null, bottom: Float? = null) {
 
         this.line = line
+        if (line.raws.size <= 1) {
+            invalidate()
+            return
+        }
         dataBoundary.left = line.raws[0].first
         dataBoundary.right = line.raws[0].first
         dataBoundary.top = line.raws[0].second
